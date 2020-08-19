@@ -2,7 +2,13 @@
 
 ## バージョン情報
 Ruby 2.6.5
+
+<br>
+
 Ruby on Rails 5.2.4
+
+<br>
+
 PostgreSQL 12.3
 
 
