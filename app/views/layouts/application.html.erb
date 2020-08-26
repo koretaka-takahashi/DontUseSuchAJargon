@@ -10,6 +10,22 @@
   </head>
 
   <body>
+    <header>
+      <nav>
+        <% if user_signed_in? %>
+            <strong><%= "ようこそ、#{current_user.name}さん！" %></strong>
+            <%= link_to 'マイページ', user_path(current_user.id) %>
+            <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
+        <% else %>
+            <%= link_to 'ログイン', new_user_session_path %>
+            <%= link_to 'サインアップ', new_user_registration_path %>
+        <% end %>
+      </nav>
+    </header>
+
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+
     <%= yield %>
   </body>
 </html>
