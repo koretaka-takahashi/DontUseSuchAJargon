@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
-  root "users#show" # ←仮です
-  resources :users, only: [:show]
+  root "users#index" # ←仮です
+  resources :users, only: [:index, :show]
   
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
