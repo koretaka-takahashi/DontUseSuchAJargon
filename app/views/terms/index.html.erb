@@ -1,0 +1,17 @@
+<h1>用語一覧</h1>
+
+<ul>
+  <% @terms.each do |term| %>
+    <li class="term-name">
+      <%= term.name %>
+      <%= "(#{term.genre.name})" %>
+    </li>
+    <li class="tag-list">
+      <%= "〜タグ一覧〜" %>
+    </li>
+    <li class="description-numbers">
+      <%= "解説（数）" %>
+    </li>
+    <br>
+  <% end %>
+</ul>
