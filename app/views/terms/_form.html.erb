@@ -1,4 +1,4 @@
-<%= form_with(model: @term, local: true) do |form| %>
+<%= form_with(model: @term, local: true, url: new_or_edit) do |form| %>
   <% if @term.errors.any? %>
     <div id="eroor=explanation">
       <h2><%= "#{@term.errors.count}件のエラーを確認して下さい" %></h2>
