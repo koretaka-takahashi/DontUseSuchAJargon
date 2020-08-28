@@ -1,0 +1,20 @@
+<%= form_with(model: @term, local: true) do |form| %>
+  <% if @term.errors.any? %>
+    <div id="eroor=explanation">
+      <h2><%= "#{@term.errors.count}件のエラーを確認して下さい" %></h2>
+      <ul>
+        <% @term.errors.full_messages.each do |m| %>
+          <li><%= m %></li>
+        <% end %>
+      </ul>  
+    </div>
+  <% end %>
+  <table>
+    <tr class="term-name">
+      <td><%= form.text_field :name %></td>
+    </tr>
+    <tr>
+      <td><%= form.submit "登録" %></td>
+    </tr>  
+  </table>
+<% end %>

@@ -4,7 +4,11 @@
   <% @terms.each do |term| %>
     <li class="term-name">
       <%= term.name %>
-      <%= "(#{term.genre.name})" %>
+      <% if term.genre.present? %>
+        <%= "(#{term.genre.name})" %>
+      <% else %>
+        <%= "(ジャンル選択なし)" %>
+      <% end %>
     </li>
     <li class="tag-list">
       <%= "〜タグ一覧〜" %>
