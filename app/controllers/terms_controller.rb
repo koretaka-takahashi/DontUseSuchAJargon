@@ -9,6 +9,7 @@ class TermsController < ApplicationController
   end
 
   def new
+    @genres = Genre.all
     @term = Term.new
   end
 

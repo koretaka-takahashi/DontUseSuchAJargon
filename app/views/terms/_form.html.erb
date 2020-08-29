@@ -9,12 +9,10 @@
       </ul>  
     </div>
   <% end %>
-  <table>
-    <tr class="term-name">
-      <td><%= form.text_field :name %></td>
-    </tr>
-    <tr>
-      <td><%= form.submit "登録" %></td>
-    </tr>  
-  </table>
+  <ul class="form term_form">
+    <li><%= form.label "ジャンル選択" %></li>
+    <li><%= form.select :genre_id, @genres.map { |g| [g.name, g.id]}, {include_blank: '該当なし'}, class: 'form term_form' %></li>
+    <li><%= form.text_field :name %></li>
+    <li><%= form.submit "登録" %></li>
+  </ul>
 <% end %>
