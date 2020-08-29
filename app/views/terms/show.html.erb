@@ -6,8 +6,9 @@
 <h1><%= @term.name %></h1>とは
 <p>登録日:<%= @term.created_at.strftime("%F") %></p>
 
-<p>
-  <%= link_to "トップページ", terms_path %>
-  <%= link_to "編集する", edit_term_path(@term.id) %>
-  <%= link_to "削除する", term_path(@term.id), method: :delete, data: {confirm: "「#{@term.name}」を削除してよろしいですか？"} %>
-</p>
+<% if current_user && @term.user_id == current_user.id %>
+  <p>
+    <%= link_to "編集", edit_term_path(@term.id) %>
+    <%= link_to "削除", term_path(@term.id), method: :delete, data: {confirm: "「#{@term.name}」を削除してよろしいですか？"} %>
+  </p>
+<% end %>

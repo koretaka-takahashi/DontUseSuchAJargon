@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
   def show
-    # @user = User.find(params[:id]) 一旦ルートにしてるからコメントアウト
+    @user = User.find(params[:id])
   end  
 end

@@ -1,9 +1,7 @@
-<h1>用語一覧</h1>
-
 <ul>
   <% @terms.each do |term| %>
     <li class="term-name">
-      <%= term.name %>
+      <%= link_to "#{term.name}", term_path(term) %>
       <% if term.genre.present? %>
         <%= "(#{term.genre.name})" %>
       <% else %>

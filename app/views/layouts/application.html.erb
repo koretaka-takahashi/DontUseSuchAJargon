@@ -12,6 +12,7 @@
   <body>
     <header>
       <nav>
+        <h1><%= link_to "DON'T USE SUCH A JARGON", root_path %></h1>
         <% if user_signed_in? %>
             <strong><%= "ようこそ、#{current_user.name}さん！" %></strong>
             <%= link_to 'マイページ', user_path(current_user.id) %>

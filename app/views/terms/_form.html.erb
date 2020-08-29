@@ -10,9 +10,16 @@
     </div>
   <% end %>
   <ul class="form term_form">
-    <li><%= form.label "ジャンル選択" %></li>
-    <li><%= form.select :genre_id, @genres.map { |g| [g.name, g.id]}, {include_blank: '該当なし'}, class: 'form term_form' %></li>
-    <li><%= form.text_field :name %></li>
-    <li><%= form.submit "登録" %></li>
+    <div class="term_genre">
+      <li><%= form.label "ジャンル選択" %></li>
+      <li><%= form.select :genre_id, @genres.map { |g| [g.name, g.id]}, {include_blank: '該当なし'}, class: 'form term_form' %></li>
+    </div>     
+    <div class="term_name">
+      <li><%= form.label "用語を入力して下さい" %></li>    
+      <li><%= form.text_field :name %></li>
+    </div>     
+    <div class="submit term_submit">      
+      <li><%= form.submit "登録" %></li>
+    </div>  
   </ul>
 <% end %>

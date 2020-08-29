@@ -23,6 +23,7 @@ class TermsController < ApplicationController
   end
 
   def edit
+    @genres = Genre.all
   end
 
   def update
