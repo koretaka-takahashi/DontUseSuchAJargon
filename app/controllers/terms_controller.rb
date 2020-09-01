@@ -1,5 +1,8 @@
 class TermsController < ApplicationController
   before_action :set_term, only: [:show, :edit, :update, :destroy]
+  before_action :set_genres, only: [:new, :edit]
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :user_check, only: [:edit, :update, :destroy]
 
   def index
     @terms = Term.all
@@ -9,7 +12,6 @@ class TermsController < ApplicationController
   end
 
   def new
-    @genres = Genre.all
     @term = Term.new
   end
 
@@ -23,7 +25,6 @@ class TermsController < ApplicationController
   end
 
   def edit
-    @genres = Genre.all
   end
 
   def update
@@ -45,7 +46,18 @@ class TermsController < ApplicationController
     @term = Term.find(params[:id])
   end
 
+  def set_genres
+    @genres = Genre.all
+  end
+
   def term_params
     params.require(:term).permit(:name, :user_id, :genre_id)
+  end
+
+  def user_check
+    if @user != current_user
+      flash[:alert] = "権限がありません。"
+      redirect_back(fallback_location: root_path)
+    end  
   end
 end
