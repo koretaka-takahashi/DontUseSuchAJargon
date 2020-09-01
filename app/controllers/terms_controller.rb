@@ -9,6 +9,7 @@ class TermsController < ApplicationController
   end
 
   def show
+    @descriptions = @term.descriptions.all
   end
 
   def new

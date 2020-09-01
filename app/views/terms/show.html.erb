@@ -12,3 +12,7 @@
     <%= link_to "削除", term_path(@term.id), method: :delete, data: {confirm: "「#{@term.name}」を削除してよろしいですか？"} %>
   </p>
 <% end %>
+
+<% @descriptions.each do |description| %>
+  <p><%= simple_format description.content %></p>
+<% end %>
