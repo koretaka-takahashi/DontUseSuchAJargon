@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :show]
   resources :genres, only: [:index]
   resources :terms
+  resources :descriptions, except: [:index]
   
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
