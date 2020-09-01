@@ -16,9 +16,9 @@ ActiveRecord::Schema.define(version: 2020_09_01_022519) do
   enable_extension "plpgsql"
 
   create_table "descriptions", force: :cascade do |t|
-    t.text "content"
-    t.bigint "user_id"
-    t.bigint "term_id"
+    t.text "content", null: false
+    t.bigint "user_id", null: false
+    t.bigint "term_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["term_id"], name: "index_descriptions_on_term_id"
