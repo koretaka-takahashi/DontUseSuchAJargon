@@ -55,7 +55,7 @@ class TermsController < ApplicationController
   end
 
   def user_check
-    if @user != current_user
+    if @term.user != current_user
       flash[:alert] = "権限がありません。"
       redirect_back(fallback_location: root_path)
     end  
