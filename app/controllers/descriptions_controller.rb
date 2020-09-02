@@ -1,6 +1,6 @@
 class DescriptionsController < ApplicationController
   before_action :set_description, only: [:show, :edit, :update, :destroy]
-  # before_action :set_genres, only: [:new, :edit]
+  before_action :set_term, only: [:show, :new, :create]
   # before_action :authenticate_user!, except: [:index, :show]
   # before_action :user_check, only: [:edit, :update, :destroy]
 
@@ -14,10 +14,11 @@ class DescriptionsController < ApplicationController
   end
 
   def create
+    @term = Term.find(params[:term_id])
     @description = current_user.descriptions.build(description_params)
-    @description.term_id = params[:term_id]
+    @description.term_id = @term.id
     if @description.save
-      redirect_to term_path(@description.term), notice: "解説を投稿しました"
+      redirect_to term_description_path(@description.term, @description), notice: "解説を投稿しました"
     else
       render :new
     end
@@ -46,7 +47,7 @@ class DescriptionsController < ApplicationController
   end
 
   def set_term
-    @term = Term.all
+    @term = Term.find(params[:term_id])
   end
 
   def description_params

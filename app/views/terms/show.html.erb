@@ -6,7 +6,7 @@
 <h1><%= @term.name %></h1>とは
 <p><%= link_to "解説する", new_term_description_path(@term) %></p>
 
-<!--現在は作成者にも権限与えなくていいと判断-->
+<!--現在は作成者にも権限与えなくていいと判断、コントローラーで無効にしてる-->
 <% if current_user && @term.user_id == current_user.id %>
   <%= link_to "編集", edit_term_path(@term) %>
   <%= link_to "削除", term_path(@term), method: :delete, data: {confirm: "「#{@term.name}」を削除してよろしいですか？"} %>
