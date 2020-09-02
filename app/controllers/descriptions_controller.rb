@@ -8,6 +8,7 @@ class DescriptionsController < ApplicationController
   end
 
   def new
+    @term = Term.find(params[:term_id])
     @description = Description.new
   end
 

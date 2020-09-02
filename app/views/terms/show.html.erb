@@ -4,7 +4,7 @@
   <%= "(ジャンル指定なし)" %>
 <% end %>        
 <h1><%= @term.name %></h1>とは
-<p>登録日:<%= @term.created_at.strftime("%F") %></p>
+<p><%= link_to "解説する", new_term_description_path(@term) %></p>
 
 <% if current_user && @term.user_id == current_user.id %>
   <p>
@@ -14,7 +14,10 @@
 <% end %>
 
 <% @descriptions.each do |description| %>
-  <p><%= simple_format description.content %></p>
+  <hr>
+  <p><%= "#{@term.name}とは" %></p>
+  <p><%= simple_format description.content.truncate(100) %></p>
+  <p><%= description.created_at.strftime("%F %R") %></p>  
   <%= link_to "編集", edit_term_description_path(@term, description) %>
   <%= link_to "削除", term_description_path(@term, description), method: :delete, data: {confirm: "解説を削除してよろしいですか？"} %>
 <% end %>
