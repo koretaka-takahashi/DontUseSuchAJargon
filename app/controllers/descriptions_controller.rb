@@ -5,6 +5,7 @@ class DescriptionsController < ApplicationController
   # before_action :user_check, only: [:edit, :update, :destroy]
 
   def show
+    @term = Term.find(params[:term_id])
   end
 
   def new

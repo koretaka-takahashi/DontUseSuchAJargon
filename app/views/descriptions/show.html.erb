@@ -1,0 +1,7 @@
+<h1><%= @term.name %></h1>とは
+<p><%= @description.created_at.strftime("%F %R") %>
+  <%= link_to "編集", edit_term_description_path(@term, @description) %>
+  <%= link_to "削除", term_description_path(@term, @description), method: :delete, data: {confirm: "解説を削除してよろしいですか？"} %>
+</p>
+<p><%= simple_format @description.content %></p>
+<hr>

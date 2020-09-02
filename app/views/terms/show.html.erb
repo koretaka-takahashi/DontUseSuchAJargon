@@ -7,16 +7,17 @@
 <p><%= link_to "解説する", new_term_description_path(@term) %></p>
 
 <% if current_user && @term.user_id == current_user.id %>
-  <p>
-    <%= link_to "編集", edit_term_path(@term) %>
-    <%= link_to "削除", term_path(@term), method: :delete, data: {confirm: "「#{@term.name}」を削除してよろしいですか？"} %>
-  </p>
+  <%= link_to "編集", edit_term_path(@term) %>
+  <%= link_to "削除", term_path(@term), method: :delete, data: {confirm: "「#{@term.name}」を削除してよろしいですか？"} %>
 <% end %>
 
 <% @descriptions.each do |description| %>
   <hr>
   <p><%= "#{@term.name}とは" %></p>
-  <p><%= simple_format description.content.truncate(100) %></p>
+  <p>
+    <%= simple_format description.content.truncate(100) %>
+    <%= link_to "全て見る", term_description_path(@term, description) %>
+  </p>
   <p><%= description.created_at.strftime("%F %R") %></p>  
   <%= link_to "編集", edit_term_description_path(@term, description) %>
   <%= link_to "削除", term_description_path(@term, description), method: :delete, data: {confirm: "解説を削除してよろしいですか？"} %>
