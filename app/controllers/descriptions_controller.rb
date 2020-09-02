@@ -1,20 +1,17 @@
 class DescriptionsController < ApplicationController
   before_action :set_description, only: [:show, :edit, :update, :destroy]
-  before_action :set_term, only: [:show, :new, :create]
-  # before_action :authenticate_user!, except: [:index, :show]
-  # before_action :user_check, only: [:edit, :update, :destroy]
+  before_action :set_term, only: [:show, :new, :create] # 親になるTermを設定
+  before_action :authenticate_user!, except: [:show]
+  before_action :user_check, only: [:edit, :update, :destroy] # 作成者かどうか。
 
   def show
-    @term = Term.find(params[:term_id])
   end
 
   def new
-    @term = Term.find(params[:term_id])
     @description = Description.new
   end
 
   def create
-    @term = Term.find(params[:term_id])
     @description = current_user.descriptions.build(description_params)
     @description.term_id = @term.id
     if @description.save
