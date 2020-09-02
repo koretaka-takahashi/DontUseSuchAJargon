@@ -8,11 +8,13 @@
 
 <% if current_user && @term.user_id == current_user.id %>
   <p>
-    <%= link_to "編集", edit_term_path(@term.id) %>
-    <%= link_to "削除", term_path(@term.id), method: :delete, data: {confirm: "「#{@term.name}」を削除してよろしいですか？"} %>
+    <%= link_to "編集", edit_term_path(@term) %>
+    <%= link_to "削除", term_path(@term), method: :delete, data: {confirm: "「#{@term.name}」を削除してよろしいですか？"} %>
   </p>
 <% end %>
 
 <% @descriptions.each do |description| %>
   <p><%= simple_format description.content %></p>
+  <%= link_to "編集", edit_term_description_path(@term, description) %>
+  <%= link_to "削除", term_description_path(@term, description), method: :delete, data: {confirm: "解説を削除してよろしいですか？"} %>
 <% end %>

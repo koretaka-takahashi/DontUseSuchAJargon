@@ -1,6 +1,6 @@
 <%= form_with(model: @description, local: true, url: description_new_or_edit) do |form| %>
   <% if @description.errors.any? %>
-    <div id="eroor=explanation">
+    <div id="error=explanation">
       <h2><%= "#{@description.errors.count}件のエラーを確認して下さい" %></h2>
       <ul>
         <% @description.errors.full_messages.each do |m| %>
