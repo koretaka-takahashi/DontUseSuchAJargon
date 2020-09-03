@@ -6,11 +6,11 @@ class TermsController < ApplicationController
   # ↑ 作成者かどうか。現在は不要と判断。いずれ管理者機能実装時に管理者にのみ権限付与予定。
 
   def index
-    @terms = Term.all
+    @terms = Term.all.order(created_at: :desc)
   end
 
   def show
-    @descriptions = @term.descriptions.all
+    @descriptions = @term.descriptions.all.order(created_at: :desc)
   end
 
   def new
