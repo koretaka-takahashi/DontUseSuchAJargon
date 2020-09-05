@@ -1,5 +1,5 @@
 <ul>
-  <% @terms.each do |term| %>
+  <% @search_terms.each do |term| %>
     <li class="term-name">
       <%= link_to "#{term.name}", term_path(term) %>
       <% if term.genre.present? %>

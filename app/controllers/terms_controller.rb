@@ -7,6 +7,7 @@ class TermsController < ApplicationController
 
   def index
     @terms = Term.all.order(created_at: :desc)
+    # binding.pry
   end
 
   def show
