@@ -37,9 +37,9 @@
         <div class="modal__content">
           <ul class="search-box">
             <%= search_form_for @search, url: terms_path do |f| %>
-              <li><%= f.label :name_cont, "用語名" %></li>
+              <li><%= f.label :name_cont, "用語名から" %></li>
               <li><%= f.search_field :name_cont ,placeholder: '検索するテキストを入力...' %></li>
-              <li><%= f.label :descriptions_content_cont, "解説も含める" %></li>
+              <li><%= f.label :descriptions_content_cont, "解説から" %></li>
               <li><%= f.search_field :descriptions_content_cont ,placeholder: '検索するテキストを入力...' %></li>
               <li><%= f.label :genre_id, "ジャンル選択" %>
               <li><%= f.collection_select :genre_id_eq, Genre.all, :id, :name, :include_blank => '指定なし' %>        
