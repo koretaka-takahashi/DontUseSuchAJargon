@@ -14,3 +14,42 @@
  *= require_tree .
  *= require_self
  */
+ *{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+  background-color: rgb(238, 222, 169);
+}
+
+.modal{
+  display: none; /* 初期で見えない状態に */
+  height: 100vh; /* ブラウザの高さに合わせる */
+  position: fixed; /* 一緒にスクロールされにように固定する */
+  top: 0;
+  width: 100%;
+}
+
+.modal__bg{
+  background: rgba(0,0,0,0.8); /* 半透明に */
+  height: 100vh; /* ブラウザの高さに合わせる */
+  position: absolute; /* 親にfixedがあるのでabsoluteでOK */
+  width: 100%;
+}
+
+/* モーダルウィンドウのコンテンツを画面の縦横センターに配置 */
+.modal__content{
+  background: #fff;
+  left: 50%;
+  padding: 40px;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  width: 60%;
+}
+
+.js-modal-close-btn{
+  text-align: right;
+}

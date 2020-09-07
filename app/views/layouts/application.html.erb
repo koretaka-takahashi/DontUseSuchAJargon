@@ -29,17 +29,28 @@
           <li><%= f.submit ("検索") , class: 'search-btn'%></li>
         <% end %>
       </ul>
-
-      <ul class="search-box">
-        <%= search_form_for @search, url: terms_path do |f| %>
-          <li><%= f.label :name_or_descriptions_content_cont, "解説も含めて検索" %></li>
-          <li><%= f.search_field :name_or_descriptions_content_cont ,placeholder: '検索するテキストを入力...' %></li>
-          <li><%= f.label :genre_id, "ジャンル選択" %>
-          <li><%= f.collection_select :genre_id_eq, Genre.all, :id, :name, :include_blank => '指定なし' %>
-      
-          <li><%= f.submit ("検索") , class: 'search-btn'%></li>
-        <% end %>
-      </ul>
+      <div class="content">
+        <a class="js-modal-open" href="">詳細検索</a>
+      </div>
+      <div class="modal js-modal">
+        <div class="modal__bg js-modal-close"></div>
+        <div class="modal__content">
+          <ul class="search-box">
+            <%= search_form_for @search, url: terms_path do |f| %>
+              <li><%= f.label :name_cont, "用語名" %></li>
+              <li><%= f.search_field :name_cont ,placeholder: '検索するテキストを入力...' %></li>
+              <li><%= f.label :descriptions_content_cont, "解説も含める" %></li>
+              <li><%= f.search_field :descriptions_content_cont ,placeholder: '検索するテキストを入力...' %></li>
+              <li><%= f.label :genre_id, "ジャンル選択" %>
+              <li><%= f.collection_select :genre_id_eq, Genre.all, :id, :name, :include_blank => '指定なし' %>        
+              <li><%= f.submit ("検索") , class: 'search-btn'%></li>
+            <% end %>
+            <div class="js-modal-close-btn">
+              <a class="js-modal-close" href="">閉じる</a>
+            </div>
+          </ul>
+        </div>
+      </div>
     </header>
 
     <p class="notice"><%= notice %></p>

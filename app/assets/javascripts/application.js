@@ -16,3 +16,14 @@
 //= require jquery/dist/jquery.js
 //= require bootstrap/dist/js/bootstrap.min
 //= require_tree .
+
+$(function(){
+  $('.js-modal-open').on('click',function(){
+      $('.js-modal').fadeIn();
+      return false;
+  });
+  $('.js-modal-close').on('click',function(){
+      $('.js-modal').fadeOut();
+      return false;
+  });
+});
