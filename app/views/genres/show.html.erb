@@ -1,0 +1,15 @@
+<ul>
+  <% @terms.each do |term| %>
+    <li class="term-name">
+      <%= link_to "#{term.name}", term_path(term) %>
+      <%= "(#{term.genre.name})" %>
+    </li>
+    <li class="tag-list">
+      <%= "〜タグ一覧〜" %>
+    </li>
+    <li class="description-numbers">
+      <%= link_to "解説(#{term.descriptions.count})", term_path(term, anchor: "descriptions-list") %>
+    </li>
+    <br>
+  <% end %>
+</ul>

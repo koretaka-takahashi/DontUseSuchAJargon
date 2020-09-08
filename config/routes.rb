@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
   root "genres#index"
   resources :users, only: [:index, :show]
-  resources :genres, only: [:index]
+  resources :genres, only: [:index, :show]
   resources :terms do
     resources :descriptions, except: [:index]
   end  
