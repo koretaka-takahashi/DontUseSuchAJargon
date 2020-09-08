@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_01_023733) do
+ActiveRecord::Schema.define(version: 2020_09_07_064455) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,23 @@ ActiveRecord::Schema.define(version: 2020_09_01_023733) do
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "taggings", force: :cascade do |t|
+    t.bigint "term_id", null: false
+    t.bigint "tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tag_id"], name: "index_taggings_on_tag_id"
+    t.index ["term_id"], name: "index_taggings_on_term_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "genre_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["genre_id"], name: "index_tags_on_genre_id"
   end
 
   create_table "terms", force: :cascade do |t|
@@ -67,6 +84,9 @@ ActiveRecord::Schema.define(version: 2020_09_01_023733) do
 
   add_foreign_key "descriptions", "terms"
   add_foreign_key "descriptions", "users"
+  add_foreign_key "taggings", "tags"
+  add_foreign_key "taggings", "terms"
+  add_foreign_key "tags", "genres"
   add_foreign_key "terms", "genres"
   add_foreign_key "terms", "users"
 end
