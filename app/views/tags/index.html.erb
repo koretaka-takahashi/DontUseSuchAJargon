@@ -1,0 +1,9 @@
+<h1><%= "ジャンル＜ #{@genre.name} ＞内のタグ一覧" %></h1>
+<ul>
+  <% @tags.each do |tag| %>
+    <li class="term-name">
+      <%= "#{tag.name}" %>
+    </li>
+  <% end %>
+</ul>
+<p><%= link_to "タグ追加", new_genre_tag_path(@genre) %></p>

@@ -3,6 +3,10 @@
 <% else %>
   <%= "(ジャンル指定なし)" %>
 <% end %>        
+<% @term.tags.each do |tag| %>
+    <%= tag.name %>
+<% end %>
+<%= link_to "タグ付けする", new_term_tagging_path(@term) %>
 <h1><%= @term.name %></h1>とは
 <p><%= link_to "解説する", new_term_description_path(@term) %></p>
 

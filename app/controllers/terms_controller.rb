@@ -1,17 +1,14 @@
 class TermsController < ApplicationController
   before_action :set_term, only: [:show, :edit, :update, :destroy]
   before_action :set_genres, only: [:new, :edit] # 選択ボックスの為ジャンルを全てセット。
+  # before_action :set_tags, only: [:show] # タグ付け時に選ぶリスト用に取得しておく（いらねーか？！）
+
   before_action :authenticate_user!, except: [:index, :show] # ログイン済みかどうか。
   # before_action :user_check, only: [:edit, :update, :destroy]
   # ↑ 作成者かどうか。現在は不要と判断。いずれ管理者機能実装時に管理者にのみ権限付与予定。
 
   def index
-    # binding.pry
   end
-
-  def index_on_genre
-    
-  end  
 
   def show
     @descriptions = @term.descriptions.all.order(created_at: :desc)
@@ -24,7 +21,7 @@ class TermsController < ApplicationController
   def create
     @term = current_user.terms.build(term_params)
     if @term.save
-      redirect_to terms_path, notice: "新しく用語を登録しました"
+      redirect_to terms_path, notice: "新しく用語を登録しました。"
     else
       render :new
     end
@@ -35,7 +32,7 @@ class TermsController < ApplicationController
 
   def update
     if @term.update(term_params)
-      redirect_to terms_path, notice: "更新しました"
+      redirect_to terms_path, notice: "更新しました。"
     else
       render :new
     end
@@ -43,7 +40,7 @@ class TermsController < ApplicationController
 
   def destroy
     @term.destroy
-    redirect_to terms_path, notice: "タイトル「#{@term.name}」を削除しました"
+    redirect_to terms_path, notice: "タイトル「#{@term.name}」を削除しました。"
   end
 
   private
@@ -55,6 +52,11 @@ class TermsController < ApplicationController
   def set_genres
     @genres = Genre.all
   end
+
+  # いらないっぽい！？  
+  # def set_tags
+  #   @tags = Tags.where(genre_id: @term.genre_id).all.order(:name)
+  # end  
 
   def term_params
     params.require(:term).permit(:name, :user_id, :genre_id)

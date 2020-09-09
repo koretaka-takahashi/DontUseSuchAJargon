@@ -1,0 +1,21 @@
+<%= form_with(model: @tagging, local: true, url: term_taggings_path) do |form| %>
+  <% if @tagging.errors.any? %>
+    <div id="error=explanation">
+      <h2><%= "#{@tagging.errors.count}件のエラーを確認して下さい" %></h2>
+      <ul>
+        <% @tagging.errors.full_messages.each do |m| %>
+          <li><%= m %></li>
+        <% end %>
+      </ul>  
+    </div>
+  <% end %>
+  <ul class="form tagging_form">
+    <div class="tagging_tags">
+      <li><%= form.label "タグ選択" %></li>
+      <li><%= form.select :tag_id, @tags.map { |g| [g.name, g.id]}, class: 'form tagging_form' %></li>
+    </div>
+    <div class="submit term_submit">      
+      <li><%= form.submit "登録" %></li>
+    </div>  
+  </ul>
+<% end %>

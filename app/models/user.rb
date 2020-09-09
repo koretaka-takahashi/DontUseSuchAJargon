@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_many :terms # dependent: :destroy は無くていいと踏んでいる
   has_many :descriptions # これもdependent: :destroy は無くていいと踏んでいる
+  has_many :tags # これもdependent: :destroy は無くていいと踏んでいる
   validates :name, presence: true, length: { maximum: 50 }
   validates :email, presence: true, length: { maximum: 100 }
   validates :profile, length: { maximum: 1500 }
