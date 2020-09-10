@@ -5,7 +5,7 @@ before_action :authenticate_user!, except: [:index, :show] # ログイン済み�
 # タグに関しては運用自体考え中。
 
   def index
-    @tags = Tag.all.order(:name)
+    @tags = Tag.where(genre_id: @genre.id).order(:name)
 
   end
 
