@@ -59,7 +59,7 @@ class TermsController < ApplicationController
   # end  
 
   def term_params
-    params.require(:term).permit(:name, :user_id, :genre_id)
+    params.require(:term).permit(:name, :user_id, :genre_id, tag_ids: [])
   end
 
   def user_check

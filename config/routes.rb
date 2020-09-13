@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   end
   resources :terms do
     resources :descriptions, except: [:index]
-    resources :taggings, only: [:new, :create, :destroy]
+    resources :taggings, only: [:index, :new, :create, :destroy]
   end
   
   if Rails.env.development?

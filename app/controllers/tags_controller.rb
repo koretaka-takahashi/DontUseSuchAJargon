@@ -6,12 +6,10 @@ before_action :authenticate_user!, except: [:index, :show] # ログイン済み�
 
   def index
     @tags = Tag.where(genre_id: @genre.id).order(:name)
-
   end
 
   def new
     @tag = Tag.new
-    # binding.pry
   end
 
   def create
@@ -46,6 +44,6 @@ before_action :authenticate_user!, except: [:index, :show] # ログイン済み�
   end
 
   def tag_params
-    params.require(:tag).permit(:name, :genre_id, :user_id)
+    params.require(:tag).permit(:name)
   end
 end
