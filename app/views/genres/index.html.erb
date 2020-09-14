@@ -1,4 +1,4 @@
-<%= link_to ">>ジャンル指定なし用語一覧へ", terms_path %>
+<%= link_to ">>ジャンルを指定せず用語一覧へ", terms_path %>
 <% @genres.each do |genre| %>
   <h1><%= link_to "#{genre.name}", genre_path(genre.id) %></h1>
   <% genre.tags.each do |tag| %>
