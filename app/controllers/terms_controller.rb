@@ -21,7 +21,7 @@ class TermsController < ApplicationController
   def create
     @term = current_user.terms.build(term_params)
     if @term.save
-      redirect_to terms_path, notice: "新しく用語を登録しました。"
+      redirect_to term_path(@term), notice: "新しく用語を登録しました。"
     else
       render :new
     end

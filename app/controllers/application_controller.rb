@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :set_search
+  before_action :set_search, :set_for_new_term
 
   def after_sign_out_path_for(resource_or_scope)
     root_path
@@ -14,5 +14,10 @@ class ApplicationController < ActionController::Base
   def set_search
     @search = Term.ransack(params[:q])
     @search_terms = @search.result(distinct: true).order(created_at: :desc)
+  end
+
+  def set_for_new_term
+    @term = Term.new
+    @genres = Genre.all
   end
 end

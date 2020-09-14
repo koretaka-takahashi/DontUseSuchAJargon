@@ -19,12 +19,26 @@
 document.addEventListener("turbolinks:load"
 , function(){
   $(function(){
-    $('.js-modal-open').on('click',function(){
-        $('.js-modal').fadeIn();
+    $('.js-modal-open-search').on('click',function(){
+        $('.js-modal-search').fadeIn();
         return false;
     });
-    $('.js-modal-close').on('click',function(){
-        $('.js-modal').fadeOut();
+    $('.js-modal-close-search').on('click',function(){
+        $('.js-modal-search').fadeOut();
+        return false;
+    });
+  });
+})
+
+document.addEventListener("turbolinks:load"
+, function(){
+  $(function(){
+    $('.js-modal-open-term-new').on('click',function(){
+        $('.js-modal-term-new').fadeIn();
+        return false;
+    });
+    $('.js-modal-close-term-new').on('click',function(){
+        $('.js-modal-term-new').fadeOut();
         return false;
     });
   });
