@@ -51,13 +51,14 @@
           </ul>
         </div>
       </div>
-      <div>
-      <p class="js-modal-open-term-new"><%= link_to "用語を登録" %></p>
+      <div class="content">
+        <p class="js-modal-open-term-new"><%= link_to "用語を登録" %></p>
+      </div>
       <div class="modal js-modal-term-new">
         <div class="modal__bg js-modal-close-term-new"></div>
           <div class="modal__content">
-             <%= render "terms/form" %>
-             <div class="js-modal-close-btn">
+            <%= render "terms/form" %>
+            <div class="js-modal-close-btn">
               <a class="js-modal-close-term-new" href="">閉じる</a>
             </div>
           </div>

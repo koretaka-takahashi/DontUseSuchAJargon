@@ -11,13 +11,14 @@
   <% end %>
   <ul class="form term_form">
     <div class="term_name">
-      <li><%= form.label "用語を入力して下さい" %></li>    
+      <li><%= form.label "用語を入力して下さい。" %></li>    
       <li><%= form.text_field :name %></li>
     </div>     
     <div class="term_genre">
       <li><%= form.label "ジャンル選択" %></li>
       <li><%= form.select :genre_id, @genres.map { |g| [g.name, g.id]}, {include_blank: '該当なし'}, class: 'form term_form' %></li>
-    </div>         
+    </div> 
+    <li><%= form.label "タグ" %></li>     
     <%= form.collection_check_boxes :tag_ids, Tag.all, :id, :name do |tag| %>
       <%= tag.label { tag.check_box + tag.text } %>
     <% end %>

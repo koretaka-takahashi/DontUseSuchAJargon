@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
 
   def set_search
     @search = Term.ransack(params[:q])
-    @search_terms = @search.result(distinct: true).order(created_at: :desc)
+    @search_terms = @search.result(distinct: true).order(updated_at: :desc)
   end
 
   def set_for_new_term
