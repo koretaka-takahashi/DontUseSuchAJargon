@@ -8,7 +8,7 @@ module TermsHelper
   end
 
   def show_or_not # showアクションからの投稿ボタンがeditアクション扱いになる事を回避
-    if @term.present? # ＠termがDBに存在すればnewしただけのインスタンスを再代入
+    if action_name == "show" # ＠termがDBに存在すればnewしただけのインスタンスを再代入
       @term = Term.new
     else
       @term
