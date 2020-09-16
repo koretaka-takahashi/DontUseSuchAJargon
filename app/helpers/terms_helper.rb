@@ -6,4 +6,12 @@ module TermsHelper
       term_path
     end
   end
+
+  def show_or_not # showアクションからの投稿ボタンがeditアクション扱いになる事を回避
+    if @term.present? # ＠termがDBに存在すればnewしただけのインスタンスを再代入
+      @term = Term.new
+    else
+      @term
+    end
+  end  
 end
