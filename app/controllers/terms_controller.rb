@@ -2,6 +2,7 @@ class TermsController < ApplicationController
   before_action :set_term, only: [:show, :edit, :update, :destroy]
   before_action :set_genres, only: [:new, :edit] # 選択ボックスの為ジャンルを全てセット。
   # before_action :set_tags, only: [:show] # タグ付け時に選ぶリスト用に取得しておく（いらねーか？！）
+  before_action :set_tagging, only: [:show]
 
   before_action :authenticate_user!, except: [:index, :show] # ログイン済みかどうか。
   # before_action :user_check, only: [:edit, :update, :destroy]
@@ -51,6 +52,10 @@ class TermsController < ApplicationController
 
   def set_genres
     @genres = Genre.all
+  end
+
+  def set_tagging
+    @tagging = @term.taggings.build
   end
 
   # いらないっぽい！？  

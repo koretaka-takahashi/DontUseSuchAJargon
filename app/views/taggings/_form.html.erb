@@ -1,7 +1,4 @@
-
-あーーーーーーーーーー
-<!--多分いらない
-<%= form_with(model: @tagging, local: true, url: term_taggings_path) do |form| %>
+<%= form_with(model: @tagging, local: true, url: term_taggings_path(@term), method: :post	) do |form| %>
   <% if @tagging.errors.any? %>
     <div id="error=explanation">
       <h2><%= "#{@tagging.errors.count}件のエラーを確認して下さい" %></h2>
@@ -12,13 +9,13 @@
       </ul>  
     </div>
   <% end %>
-  <ul class="form tagging_form">
-    <div class="tagging_tags">
+  <ul class="form tagging_form">   
+    <div class="tagging_tag">
       <li><%= form.label "タグ選択" %></li>
-      <li><%= form.select :tag_id, @tags.map { |g| [g.name, g.id]}, class: 'form tagging_form' %></li>
-    </div>
-    <div class="submit term_submit">      
+      <li><%= form.select :tag_id, Tag.where(genre_id: @term.genre_id).where.not(id: @term.tags.ids).map { |t| [t.name, t.id]} %></li>
+    </div> 
+    <div class="submit tagging_submit">      
       <li><%= form.submit "登録" %></li>
     </div>  
   </ul>
-<% end %> -->
+<% end %>

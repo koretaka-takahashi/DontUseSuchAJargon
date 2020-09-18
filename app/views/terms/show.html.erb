@@ -7,7 +7,9 @@
 <% @term.tags.each do |tag| %>
   <%= link_to tag.name, genre_tag_path(tag.genre, tag), class:"btn btn-primary border-dark text-white btn-sm" %>
 <% end %>
-<%= link_to "タグ付けする", edit_term_path(@term) %>
+
+<%= render "taggings/form" %>
+
 <h1><%= @term.name %></h1>とは
 <%= link_to "編集", edit_term_path(@term) %>
 <p><%= link_to "解説する", new_term_description_path(@term) %></p>
