@@ -15,7 +15,7 @@
       <li><%= form.text_area :content %></li>
     </div>     
     <div class="submit description_submit">      
-      <li><%= form.submit "登録" %></li>
+      <li><%= form.submit "登録", data: { confirm: "確認はお済みですか？"} %></li>
     </div>  
   </ul>
 <% end %>

@@ -33,7 +33,7 @@ class TermsController < ApplicationController
 
   def update
     if @term.update(term_params)
-      redirect_to terms_path, notice: "更新しました。"
+      redirect_to term_path(@term), notice: "更新しました。"
     else
       render :new
     end

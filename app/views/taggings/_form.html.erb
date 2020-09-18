@@ -15,7 +15,7 @@
       <li><%= form.select :tag_id, Tag.where(genre_id: @term.genre_id).where.not(id: @term.tags.ids).map { |t| [t.name, t.id]} %></li>
     </div> 
     <div class="submit tagging_submit">      
-      <li><%= form.submit "登録" %></li>
+      <li><%= form.submit "登録", data: { confirm: "本当に必要なタグだけ付与して下さい。\rタグ付けしてよろしいですか？"} %></li>
     </div>  
   </ul>
 <% end %>

@@ -22,8 +22,6 @@
     <%= form.collection_check_boxes :tag_ids, Tag.all, :id, :name do |tag| %>
       <%= tag.label { tag.check_box + tag.text } %>
     <% end %>
-    <div class="submit term_submit">      
-      <li><%= form.submit "登録" %></li>
-    </div>  
+    <li><%= form.submit "登録", data: { confirm: "確認はお済みですか？"} %></li>
   </ul>
 <% end %>
