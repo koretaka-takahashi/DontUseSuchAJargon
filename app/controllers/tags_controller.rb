@@ -8,6 +8,9 @@ before_action :authenticate_user!, except: [:index, :show] # ログイン済み�
     @tags = Tag.where(genre_id: @genre.id).order(:name)
   end
 
+  def show
+  end   
+
   def new
     @tag = Tag.new
   end

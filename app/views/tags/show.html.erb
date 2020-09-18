@@ -1,0 +1,7 @@
+<h1><%= @tag.name %>のタグを付けられた用語一覧</h1>
+
+<ul>
+  <% @tag.terms.each do |term| %>
+    <li><%= link_to term.name, term_path(term) %></li>
+  <% end %>
+</ul>

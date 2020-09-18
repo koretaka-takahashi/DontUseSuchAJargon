@@ -6,7 +6,7 @@
     </li>
     <li class="tag-list">
       <% term.tags.each do |tag| %>
-        <%= tag.name %>
+        <%= link_to tag.name, genre_tag_path(@genre, tag), class:"btn btn-primary border-dark text-white btn-sm" %>
       <% end %>
     </li>
     <li class="description-numbers">

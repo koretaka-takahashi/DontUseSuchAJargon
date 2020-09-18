@@ -9,7 +9,9 @@
       <% end %>
     </li>
     <li class="tag-list">
-      <%= "〜タグ一覧〜" %>
+      <% term.tags.each do |tag| %>
+        <%= link_to tag.name, genre_tag_path(tag.genre, tag), class:"btn btn-primary border-dark text-white btn-sm" %>
+      <% end %>
     </li>
     <li class="description-numbers">
       <%= link_to "解説(#{term.descriptions.count})", term_path(term, anchor: "descriptions-list") %>

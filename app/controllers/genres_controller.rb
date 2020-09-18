@@ -5,7 +5,7 @@ class GenresController < ApplicationController
 
   def show
     @genre = Genre.find(params[:id])
-    @terms = @genre.terms.all.order(created_at: :desc)
+    @terms = @genre.terms.order(created_at: :desc)
   end  
 end
 
