@@ -18,10 +18,7 @@
       <li><%= form.label "ジャンル選択" %></li>
       <li><%= form.select :genre_id, @genres.map { |g| [g.name, g.id]}, {include_blank: '該当なし'}, class: 'form term_form' %></li>
     </div> 
-    <li><%= form.label "タグ" %></li>     
-    <%= form.collection_check_boxes :tag_ids, Tag.all, :id, :name do |tag| %>
-      <%= tag.label { tag.check_box + tag.text } %>
-    <% end %>
+    
     <li><%= form.submit "登録", data: { confirm: "確認はお済みですか？"} %></li>
   </ul>
 <% end %>
