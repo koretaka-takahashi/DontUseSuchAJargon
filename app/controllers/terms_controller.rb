@@ -21,10 +21,19 @@ class TermsController < ApplicationController
 
   def create
     @term = current_user.terms.build(term_params)
-    if @term.save
-      redirect_to term_path(@term), notice: "新しく用語を登録しました。"
-    else
-      render :new
+    # @termsは@search_termsがすでにあるのでJSに変数渡す時に@search_termsで渡してあげれば良いと予想
+    respond_to do |format|
+      if @term.save
+        flash[:notice] = '新しく用語を登録しました。'
+        # format.html { redirect_to term_path(@term) }
+        format.js { render js: "window.location = '#{term_path(@term)}'" }
+      else
+        @term.errors.each do |name, msg|
+          flash.now[:danger] = msg
+        end
+        format.html { render "new" }
+        format.js { render "new" }
+      end
     end
   end
 

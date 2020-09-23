@@ -1,24 +1,26 @@
-<%= form_with(model: show_or_not, local: true, url: new_or_edit) do |form| %>
-  <% if @term.errors.any? %>
-    <div id="error=explanation">
-      <h2><%= "#{@term.errors.count}件のエラーを確認して下さい" %></h2>
-      <ul>
-        <% @term.errors.full_messages.each do |m| %>
-          <li><%= m %></li>
-        <% end %>
-      </ul>  
-    </div>
-  <% end %>
-  <ul class="form term_form">
-    <div class="term_name">
-      <li><%= form.label "用語を入力して下さい。" %></li>    
-      <li><%= form.text_field :name %></li>
+<%= form_with(model: show_or_not, remote: true, url: new_or_edit) do |form| %>
+  <div class="modal-body">
+    <% if @term.errors.any? %>
+      <div id="error=explanation">
+        <h2><%= "#{@term.errors.count}件のエラーを確認して下さい" %></h2>
+        <ul>
+          <% @term.errors.full_messages.each do |m| %>
+            <li><%= m %></li>
+          <% end %>
+        </ul>  
+      </div>
+    <% end %>
+    <div class="form-group">
+      <%= form.label "用語を入力して下さい。" %>    
+      <%= form.text_field :name %>
     </div>     
-    <div class="term_genre">
-      <li><%= form.label "ジャンル選択" %></li>
-      <li><%= form.select :genre_id, @genres.map { |g| [g.name, g.id]}, {include_blank: '該当なし'}, class: 'form term_form' %></li>
+    <div class="form-group">
+      <%= form.label "ジャンル選択" %>
+      <%= form.select :genre_id, @genres.map { |g| [g.name, g.id]}, {include_blank: '該当なし'}, class: 'form term_form' %>
     </div> 
-    
-    <li><%= form.submit "登録", data: { confirm: "確認はお済みですか？"} %></li>
-  </ul>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+    <%= form.submit "登録", data: { confirm: "確認はお済みですか？"}, class: "btn btn-primary" %>
+  </div>
 <% end %>

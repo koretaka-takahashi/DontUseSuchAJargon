@@ -44,3 +44,8 @@ document.addEventListener("turbolinks:load"
     });
   });
 })
+
+// $ ->
+//   $('#exampleModal').on "ajax:error", (e, xhr, status, error) ->
+//     message = xhr.responseText
+//     $('#error-message').html(message)
