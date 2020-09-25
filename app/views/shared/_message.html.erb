@@ -1,3 +1,10 @@
-<% flash.each do |name, msg| %>
-      <%= content_tag :div, msg, id: "flash_#{name}" %>
+<% if term.errors.any? %>
+  <div id="error=explanation">
+    <h2><%= "#{term.errors.count}件のエラーを確認して下さい" %></h2>
+    <ul>
+    <% term.errors.full_messages.each do |m| %>
+    <li><%= m %></li>
+    <% end %>
+    </ul>  
+  </div>
 <% end %>

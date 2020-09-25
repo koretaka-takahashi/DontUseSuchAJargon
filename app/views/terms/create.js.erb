@@ -1,3 +1,5 @@
 $("text-area").val("");
 $("input").val("");
-$('#exampleModal').modal('hide')
+$('#termModal').modal('hide')
+$("main").html("<%= j(render 'show.html.erb', term: @term ) %>")
+

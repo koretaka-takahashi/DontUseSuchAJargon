@@ -25,14 +25,14 @@ class TermsController < ApplicationController
     respond_to do |format|
       if @term.save
         flash[:notice] = '新しく用語を登録しました。'
-        # format.html { redirect_to term_path(@term) }
-        format.js { render js: "window.location = '#{term_path(@term)}'" }
+        format.html { redirect_to term_path(@term) }
+        format.js { render 'create.js.erb' }
       else
-        @term.errors.each do |name, msg|
-          flash.now[:danger] = msg
-        end
+        # @term.errors.each do |name, msg|
+        #   flash.now[:danger] = msg
+        # end
         format.html { render "new" }
-        format.js { render "new" }
+        format.js { render "failure" }
       end
     end
   end
