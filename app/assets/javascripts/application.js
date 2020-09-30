@@ -30,23 +30,3 @@ document.addEventListener("turbolinks:load"
     });
   });
 })
-
-// ↓どうやらこれは現在、bootstrapでやってくれてる模様。そのうち消す
-// document.addEventListener("turbolinks:load"
-// , function(){
-//   $(function(){
-//     $('.js-modal-open-term-new').on('click',function(){
-//         $('.js-modal-term-new').fadeIn();
-//         return false;
-//     });
-//     $('.js-modal-close-term-new').on('click',function(){
-//         $('.js-modal-term-new').fadeOut();
-//         return false;
-//     });
-//   });
-// })
-
-// $ -> （試行錯誤中のコピペ。意味は不明、近いうち消す）
-//   $('#exampleModal').on "ajax:error", (e, xhr, status, error) ->
-//     message = xhr.responseText
-//     $('#error-message').html(message)

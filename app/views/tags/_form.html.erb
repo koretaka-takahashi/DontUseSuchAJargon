@@ -1,12 +1,12 @@
 <%= form_with(model: @tag, local: true, url: tag_new_or_edit) do |form| %>
   <% if @tag.errors.any? %>
-    <div id="error=explanation">
-      <h2><%= "#{@tag.errors.count}件のエラーを確認して下さい" %></h2>
-      <ul>
+    <div id="error_explanation">
+      <p><%= "#{@tag.errors.count}件のエラーがあります。" %></p>
+      <ol>
         <% @tag.errors.full_messages.each do |m| %>
           <li><%= m %></li>
         <% end %>
-      </ul>  
+      </ol>  
     </div>
   <% end %>
   <ul class="form tag_form">

@@ -1,12 +1,12 @@
 <%= form_with(model: @tagging, local: true, url: term_taggings_path(@term), method: :post	) do |form| %>
   <% if @tagging.errors.any? %>
-    <div id="error=explanation">
-      <h2><%= "#{@tagging.errors.count}件のエラーを確認して下さい" %></h2>
-      <ul>
+    <div id="error_explanation">
+      <p><%= "#{@tagging.errors.count}件のエラーがあります。" %></p>
+      <ol>
         <% @tagging.errors.full_messages.each do |m| %>
           <li><%= m %></li>
         <% end %>
-      </ul>  
+      </ol>  
     </div>
   <% end %>
   <ul class="form tagging_form">   

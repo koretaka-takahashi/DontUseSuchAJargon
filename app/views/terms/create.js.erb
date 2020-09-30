@@ -1,5 +1,7 @@
+<%# ファイル自体いらないよね、そのうち消そう %>
 $("text-area").val("");
 $("input").val("");
 $('#termModal').modal('hide')
-$("main").html("<%= j(render 'show.html.erb', term: @term ) %>")
+$("#showTerm").html("<%= j(render 'show.html.erb', { term: @term, descriptions: @descriptions }) %>")
+
 
