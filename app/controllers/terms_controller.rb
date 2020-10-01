@@ -9,6 +9,8 @@ class TermsController < ApplicationController
   # ↑ 作成者かどうか。現在は不要と判断。いずれ管理者機能実装時に管理者にのみ権限付与予定。
 
   def index
+        # binding.pry
+
   end
 
   def show

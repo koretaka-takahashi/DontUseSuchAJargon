@@ -8,7 +8,9 @@
   <%= link_to tag.name, genre_tag_path(tag.genre, tag), class:"btn btn-primary border-dark text-white btn-sm" %>
 <% end %>
 
-<%= render "taggings/form" %>
+<% if Tag.where(genre_id: @term.genre_id).where.not(id: @term.tags.ids).count != 0 %>
+  <%= render "taggings/form" %>
+<% end %>
 
 <h1><%= @term.name %></h1>とは
 <%= link_to "編集", edit_term_path(@term) %>
