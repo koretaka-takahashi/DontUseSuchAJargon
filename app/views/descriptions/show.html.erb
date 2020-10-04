@@ -1,4 +1,4 @@
-<h1><%= @term.name %></h1>とは
+<h1><%= link_to @term.name, term_path(@term) %></h1>とは
 <p>
   <%= @description.created_at.strftime("%F %R") %>
   <% if @description.user == current_user %>

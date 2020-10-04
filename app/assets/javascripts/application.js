@@ -17,16 +17,4 @@
 //= require bootstrap/dist/js/bootstrap.min
 //= require_tree .
 
-document.addEventListener("turbolinks:load"
-, function(){
-  $(function(){
-    $('.js-modal-open-search').on('click',function(){
-        $('.js-modal-search').fadeIn();
-        return false;
-    });
-    $('.js-modal-close-search').on('click',function(){
-        $('.js-modal-search').fadeOut();
-        return false;
-    });
-  });
-})
+

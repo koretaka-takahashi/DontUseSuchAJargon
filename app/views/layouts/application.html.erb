@@ -37,7 +37,7 @@
         <div class="modal__content">
           <ul class="search-box">
             <%= search_form_for @search, url: terms_path do |f| %>
-              <li><%= f.label :name_cont, "用語名から" %></li>
+              <li><%= f.label :name_cont, "名から" %></li>
               <li><%= f.search_field :name_cont ,placeholder: '検索するテキストを入力...' %></li>
               <li><%= f.label :descriptions_content_cont, "解説から" %></li>
               <li><%= f.search_field :descriptions_content_cont ,placeholder: '検索するテキストを入力...' %></li>
@@ -54,7 +54,7 @@
 
       <!-- Button trigger modal -->
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#termModal">
-        用語を登録
+        Term登録
       </button>
 
       <!-- Modal -->
@@ -62,31 +62,15 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="termModalLabel">用語登録</h5>
+              <h5 class="modal-title" id="termModalLabel">Term登録</h5>
               <button type="button" class="close"  id="" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <%= render "terms/form" %>
+            <%= render "terms/new" %>
           </div>
         </div>
       </div>
-
-      <!-- 前のモーダル部分。新しいのがうまくいけば消す
-      <div class="content">
-        <p class="js-modal-open-term-new"><%= link_to "用語を登録" %></p>
-      </div>
-      <div class="modal js-modal-term-new">
-        <div class="modal__bg js-modal-close-term-new"></div>
-          <div class="modal__content">
-            <%= render "terms/form" %>
-            <div class="js-modal-close-btn">
-              <a class="js-modal-close-term-new" href="">閉じる</a>
-            </div>
-          </div>
-        </div>     
-      </div>
-       -->
     </header>
 
     <main>

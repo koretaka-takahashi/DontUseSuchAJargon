@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :genres, only: [:index, :show] do
     resources :tags
   end
-  resources :terms do
+  resources :terms, except: [:new] do
     resources :descriptions, except: [:index]
     resources :taggings
   end

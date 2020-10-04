@@ -28,7 +28,7 @@ class DescriptionsController < ApplicationController
     if @description.update(description_params)
       redirect_to term_path(@description.term), notice: "更新しました"
     else
-      render :new
+      render :edit
     end
   end
 

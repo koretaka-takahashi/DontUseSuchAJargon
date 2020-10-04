@@ -2,17 +2,18 @@
   <%= "(#{@term.genre.name})" %>
 <% else %>
   <%= "(ジャンル指定なし)" %>
-<% end %>        
-<br>
+<% end %>
 <% @term.tags.each do |tag| %>
   <%= link_to tag.name, genre_tag_path(tag.genre, tag), class:"btn btn-primary border-dark text-white btn-sm" %>
 <% end %>
+<h1><%= @term.name %></h1>
 
 <% if Tag.where(genre_id: @term.genre_id).where.not(id: @term.tags.ids).count != 0 %>
   <%= render "taggings/form" %>
+<% else %>  
+  <%= "これ以上タグがありません。" %>
 <% end %>
 
-<h1><%= @term.name %></h1>とは
 <%= link_to "編集", edit_term_path(@term) %>
 <p><%= link_to "解説する", new_term_description_path(@term) %></p>
 
@@ -25,7 +26,7 @@
 <div id="descriptions-list">
   <% @descriptions.each do |description| %>
     <hr>
-    <p><%= @term.name %>とは</p>
+    <h2><%= @term.name %>とは</h2>
     <p>
       <%= description.created_at.strftime("%F %R") %>
       <% if description.user == current_user %>

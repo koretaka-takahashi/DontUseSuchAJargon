@@ -1,5 +1,16 @@
-<h1>編集</h1>
+<h1>編集</h1> <!-- ジャンルは変更できなくて良い考え -->
 
-<%= render "form" %>
-
-<p><%= link_to "戻る", term_path(@term) %></p>
+<%= form_with(model: @term) do |f| %>
+  <div id="term-error-area">
+    <div id="error_explanation">
+      <%= render partial: 'shared/message', locals: { term: @term } %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label "Term名" %>    
+    <%= f.text_field :name %>
+  </div>     
+  <div>
+    <%= f.submit "登録", class: "btn btn-primary"%>
+  </div>
+<% end %>

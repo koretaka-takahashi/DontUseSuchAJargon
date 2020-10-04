@@ -9,25 +9,23 @@ class TermsController < ApplicationController
   # ↑ 作成者かどうか。現在は不要と判断。いずれ管理者機能実装時に管理者にのみ権限付与予定。
 
   def index
-        # binding.pry
-
   end
 
   def show
     @descriptions = @term.descriptions.all.order(created_at: :desc)
   end
 
-  def new
-    @term = Term.new
-  end
+  # def new
+  #   @term = Term.new
+  # end
 
   def create
     @term = current_user.terms.build(term_params)
     # @termsは@search_termsがすでにあるのでJSに変数渡す時に@search_termsで渡してあげれば良いと予想
     if @term.save
-      redirect_to term_path(@term), notice: '新しく用語を登録しました。'
+      redirect_to term_path(@term), notice: '新しくTermを登録しました。'
     else
-      render :failure
+      render :failure # エラーメッセージを出す
     end
   end
 

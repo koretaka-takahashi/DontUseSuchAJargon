@@ -12,7 +12,7 @@ class TaggingsController < ApplicationController # 多分これいらない?
     if @tagging.save
       redirect_to term_path(@term), notice: "タグ付けしました。"
     else
-      render :new
+      redirect_to term_path(@term)
     end
   end
 
