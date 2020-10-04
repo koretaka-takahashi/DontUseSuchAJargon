@@ -2,6 +2,22 @@
 
 <ul>
   <% @tag.terms.each do |term| %>
-    <li><%= link_to term.name, term_path(term) %></li>
+    <li class="term-name">
+      <%= link_to "#{term.name}", term_path(term) %>
+      <% if term.genre.present? %>
+        <%= "(#{term.genre.name})" %>
+      <% else %>
+        <%= "(ジャンル選択なし)" %>
+      <% end %>
+    </li>
+    <li class="tag-list">
+      <% term.tags.each do |tag| %>
+        <%= link_to tag.name, genre_tag_path(tag.genre, tag), class:"btn btn-primary border-dark text-white btn-sm" %>
+      <% end %>
+    </li>
+    <li class="description-numbers">
+      <%= link_to "解説(#{term.descriptions.count})", term_path(term, anchor: "descriptions-list") %> <!-- アンカーってなんだっけ。。 -->
+    </li>
+    <hr>
   <% end %>
 </ul>
