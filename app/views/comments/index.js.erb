@@ -1,0 +1,3 @@
+$("#comments_area").html("<%= j(render 'comments/index', { comments: @comment.description.comments.order(updated_at: :desc), description: @description, term: @term }) %>")
+$("textarea").val('')
+$("#create_error_area").html('')

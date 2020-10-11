@@ -5,6 +5,10 @@ class DescriptionsController < ApplicationController
   before_action :user_check, only: [:edit, :update, :destroy] # 作成者かどうか。
 
   def show
+    @comments = @description.comments.order(updated_at: :desc)
+    @comment = @description.comments.build
+    # binding.pry
+
   end
 
   def new

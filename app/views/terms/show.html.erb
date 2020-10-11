@@ -11,10 +11,10 @@
 <% if Tag.where(genre_id: @term.genre_id).where.not(id: @term.tags.ids).count != 0 %>
   <%= render "taggings/form" %>
 <% else %>  
-  <%= "これ以上タグがありません。" %>
+  <%= "（タグ付けできるタグはこれ以上ありません。）" %>
 <% end %>
 
-<%= link_to "編集", edit_term_path(@term) %>
+<p><%= link_to "編集", edit_term_path(@term) %></p>
 <p><%= link_to "解説する", new_term_description_path(@term) %></p>
 
 <!--現在は作成者にも権限与えなくていいと判断。

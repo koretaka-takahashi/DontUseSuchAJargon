@@ -13,7 +13,7 @@ document.addEventListener("turbolinks:load"
   });
 })
 
-// モーダルでエラー表示後に閉じたら、次開けた時にエラーが残らないように決しておく
+// 投稿のモーダルでエラー表示後に閉じたら、次開けた時にエラーが残らないように消しておく
 document.addEventListener("turbolinks:load", function() {
   $(document).ready(function() {
     $('#termModal').on('hidden.bs.modal', function () {
@@ -23,8 +23,8 @@ document.addEventListener("turbolinks:load", function() {
 })
 
 
-// モーダルで２度目以降のエラーが表示されないのを解消するため、エラー部分を再度持ってくる
-// （// $('#error_explanation')の後の.remove()は消した）
+// 投稿のモーダルで２度目以降のエラーが表示されないのを解消するため、エラー部分を再度持ってくる
+// （// $('#error_explanation')の後の.remove()は存在意義が不明なので消した）
 document.addEventListener("turbolinks:load", function() {
   $(document).ready(function() {
     const e = $('#error_explanation')

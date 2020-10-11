@@ -1,0 +1,21 @@
+<%= form_with(model: [term, description, comment]) do |f| %>
+  <div id="create_error_area"></div>
+  <% if comment.errors.any? %>
+    <div id="error_explanation">
+      <p><%= "#{comment.errors.count}件のエラーがあります。" %></p>
+      <ol>
+        <% comment.errors.full_messages.each do |m| %>
+          <li><%= m %></li>
+        <% end %>
+      </ol>  
+    </div>
+  <% end %>
+  <ul class="form comment_form">
+    <div class="comment_content">
+      <li><%= f.text_area :content %></li>
+    </div>     
+    <div class="submit comment_submit">      
+      <li><%= f.submit "登録", id: "comment_submit" %></li>
+    </div>  
+  </ul>
+<% end %>

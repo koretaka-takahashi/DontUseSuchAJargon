@@ -6,7 +6,9 @@ Rails.application.routes.draw do
     resources :tags
   end
   resources :terms, except: [:new] do
-    resources :descriptions, except: [:index]
+    resources :descriptions, except: [:index] do
+      resources :comments
+    end
     resources :taggings
   end
   

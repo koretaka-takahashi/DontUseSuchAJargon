@@ -8,3 +8,13 @@
 </p>
 <p><%= simple_format @description.content %></p>
 <hr>
+
+<!-- コメント入力欄 -->
+<%= render partial: 'comments/form', locals: { comment: @comment, description: @description, term: @term } %>
+<hr>
+
+<!-- コメント一覧　→下のformの方でハマった時termも渡して解決したのでここでももしもの時は試して見る（その時は無くてもエラーにならなかったため未記述） -->
+<div id="comments_area">
+  <%= render partial: 'comments/index', locals: { comments: @comments, description: @description } %>
+</div>
+
