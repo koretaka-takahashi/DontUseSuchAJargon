@@ -1,7 +1,7 @@
 class TaggingsController < ApplicationController # 多分これいらない?
   before_action :set_term, only: [:create] # ←も↓もnewに必要？
   before_action :set_tags, only: [:create] # タグ付け時に選ぶリスト用に取得しておく（いらねーか？！）
-
+  before_action :authenticate_user! # ログイン済みかどうか。
   
   def new
     @tagging = Tagging.new
@@ -16,7 +16,7 @@ class TaggingsController < ApplicationController # 多分これいらない?
     end
   end
 
-  def destroy # こっちもcreateに習って直さなきゃ。
+  def destroy # こっちもcreateに習って直さなきゃ。でも現状タグ付け外す実装は未定なのでもしその時があれば。
     tagging = @term.tags.find(params[:id])
   end
 
