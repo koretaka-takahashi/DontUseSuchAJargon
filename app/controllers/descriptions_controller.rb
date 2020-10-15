@@ -7,8 +7,7 @@ class DescriptionsController < ApplicationController
   def show
     @comments = @description.comments.order(updated_at: :desc)
     @comment = @description.comments.build
-    # binding.pry
-
+    @reply = @description.comments.build
   end
 
   def new
