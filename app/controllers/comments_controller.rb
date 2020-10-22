@@ -1,9 +1,19 @@
 class CommentsController < ApplicationController
-  before_action :set_comment, only: [:edit, :update, :destroy]
-  before_action :set_description, only: [:index, :create, :edit, :update, :destroy]
-  before_action :set_term, only: [:create, :edit, :update, :destroy]
+  before_action :set_comment, only: [:new, :edit, :update, :destroy]
+  before_action :set_description, only: [:index, :new, :create, :edit, :update, :destroy]
+  before_action :set_term, only: [:new, :create, :edit, :update, :destroy]
 
   def index
+  end
+
+  def new # 返信の時しか通らない
+    @reply = @description.comments.build
+    @reply.user_id = current_user.id
+    # ここまででは@replyも取れてる
+    respond_to do |format|
+      flash.now[:notice] = 'コメントの返信中...'
+      format.js { render :reply }
+    end
   end
   
   def create
@@ -11,7 +21,13 @@ class CommentsController < ApplicationController
     @comment.user_id = current_user.id
     respond_to do |format|
       if @comment.save
-        format.js { render :index }
+        if @comment.parent_id.present? # 返信の場合
+          flash.now[:notice] = 'コメントに返信しました。' 
+          format.js { render :add_reply }
+        else # ただのコメントの場合
+          flash.now[:notice] = 'コメントしました。' 
+          format.js { render :index }
+        end
       else
         format.js { render :create_error }
       end
@@ -27,12 +43,17 @@ class CommentsController < ApplicationController
 
   def update
     respond_to do |format|
+      # 実際に内容が変わっている場合
       if @comment.content != comment_params[:content] && @comment.update(comment_params)
         flash.now[:notice] = 'コメントが編集されました。' 
-        format.js { render :index }
-      elsif @comment.update(comment_params)
-        format.js { render :index }
-      else
+        if @comment.parent.present?
+          format.js { render :index_for_update_reply }
+        else
+          format.js { render :index_for_update }
+        end  
+      elsif @comment.update(comment_params) # 内容が変わっていない場合
+        format.js { render :index_for_update }
+      else # updateできなかった場合
         format.js { render :edit_error }
       end
     end

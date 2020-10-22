@@ -5,8 +5,11 @@ class DescriptionsController < ApplicationController
   before_action :user_check, only: [:edit, :update, :destroy] # 作成者かどうか。
 
   def show
-    @comments = @description.comments.order(updated_at: :desc)
+    # コメント一覧で親コメントのみ表示する
+    @comments = @description.comments.where(parent_id: nil).order(created_at: :asc)
+    # コメント新規作成の為
     @comment = @description.comments.build
+    # 返信の新規作成の為
     @reply = @description.comments.build
   end
 

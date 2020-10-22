@@ -1,2 +1,4 @@
-$("#this_comment_<%= @comment.id %>").replaceWith("<%= j render 'comments/edit', term: @term, description: @description, comment: @comment %>");
+$("#this_comment_<%= @comment.id %>").html("<%= j render 'comments/edit', term: @term, description: @description, comment: @comment %>");
+$("#this_comment4_<%= @comment.id %>").html("<%= j render 'comments/edit', term: @term, description: @description, comment: @comment %>");
 $("#comment_index_notice").html('')
+

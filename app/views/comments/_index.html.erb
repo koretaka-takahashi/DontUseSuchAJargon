@@ -1,17 +1,30 @@
-<% if notice %>
-  <div id="comment_index_notice"><%= notice %></div>
-  <hr>
-<% end %>
-<% comments.each do |comment| %>
-  <% if comment.id.present? %>
-    <div id="for_this_comment">
-      <div class="comment-content" id="this_comment_<%= comment.id %>"></div>
+
+<div id="comments_index">
+  <% comments.each do |comment| %>
+    <div id="for_this_comment"> <!-- JSファイルで下記divタグを指定してもRubyのコードがあり反応してくれない為作成した -->
+      <div class="comment-content" id="this_comment_<%= comment.id %>"></div> <!-- コメントを特定しedit.js.erb、_edit.html.erbとレンダリングする為 -->
     </div>
     <p>
-      <%= link_to "編集", edit_term_description_comment_path(@term, @description, comment), remote: true, id: "comment_edit_button" %>
+      <%= link_to "編集", edit_term_description_comment_path(@term, @description, comment), remote: true %> <!-- id: "comment_edit_button"は使われてなかったので取った -->
       <%= link_to "削除", term_description_comment_path(@term, @description, comment), method: :delete, remote: true, data: { confirm: "本当に削除しますか?"} %>
     </p>
-    <p><%= comment.content %></p>
+
+    <!-- 親コメント -->
+    <p><%= simple_format comment.content %></p>
+
+    <!-- 親コメントへの返信機能 （返信用フォームを表示）-->
+    <%= link_to "返信する", new_term_description_comment_path(@term, @description, comment: comment, id: comment.id), remote: true %>
+    <div id="for_this_comment2"> <!-- JSファイルで下記divタグを指定してもRubyのコードがあり反応してくれない為作成した -->
+      <div class="comment-content" id="this_comment2_<%= comment.id %>"></div> <!-- コメントを特定しreply.js.erb、そして_reply.html.erbのフォームをレンダリングする為 -->
+    </div>
+
+    <!-- 親コメントへの返信一覧 -->
+    <div id="for_this_comment3"> <!-- JSファイルで下記divタグを指定してもRubyのコードがあり反応してくれない為作成した -->
+      <div class="reply-index" id="this_comment3_<%= comment.id %>">
+        <%= render partial: 'comments/reply_index', locals: { comments: comment.replies, description: @description } %>
+      </div> <!--  -->
+    </div>
+
     <hr>
   <% end %>
-<% end %>
+</div>

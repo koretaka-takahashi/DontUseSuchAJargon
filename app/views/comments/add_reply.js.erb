@@ -1,0 +1,11 @@
+<%# インデックス用のid部分にある特定のコメントの返信一覧を更新 %>
+$("#this_comment3_<%= @comment.parent.id %>").html("<%= j render 'comments/reply_index', term: @term, description: @description, comments: @comment.parent.replies.order(created_at: :asc) %>");
+<%# 「コメントの返信中...」を消す %>
+$("#comment_index_notice").html('');
+<%# フォームを消す %>
+$("#this_comment2_<%= @comment.parent.id %>").html('');
+<%# 親にnoticeがあった場合消す（最早なぜコレで消えるのかは分からない） %>
+$("#this_comment4_<%= @comment.parent.id %>").html('<div id="comment_index_notice"><%= notice %></div>');
+$("#this_comment_<%= @comment.parent.id %>").html('<div id="comment_index_notice"><%= notice %></div>');
+
+console.log("あああああああ")

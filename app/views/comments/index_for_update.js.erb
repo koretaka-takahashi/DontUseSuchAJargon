@@ -1,5 +1,5 @@
 $("#comments_area").html("<%= j(render 'comments/index', { comments: @comment.description.comments.where(parent_id: nil).order(created_at: :asc), description: @description, term: @term }) %>");
 $("textarea").val('');
 $("#create_error_area").html('');
-$("#comment_index_notice").html('<%= notice %>');
-console.log("いいいいいいい")
+$("#this_comment_<%= @comment.id %>").html('<div id="comment_index_notice"><%= notice %></div>');
+console.log("ううううううう")
