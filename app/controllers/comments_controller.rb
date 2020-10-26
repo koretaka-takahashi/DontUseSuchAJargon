@@ -20,16 +20,22 @@ class CommentsController < ApplicationController
     @comment = @description.comments.build(comment_params)
     @comment.user_id = current_user.id
     respond_to do |format|
-      if @comment.save
-        if @comment.parent_id.present? # 返信の場合
-          flash.now[:notice] = 'コメントに返信しました。' 
-          format.js { render :add_reply }
-        else # ただのコメントの場合
+      # ただのコメントの場合
+      if @comment.parent_id.nil?
+        if @comment.save
           flash.now[:notice] = 'コメントしました。' 
           format.js { render :index }
+        else
+          format.js { render :create_error }
         end
+      # 返信の場合
       else
-        format.js { render :create_error }
+        if @comment.save
+          flash.now[:notice] = 'コメントに返信しました。' 
+          format.js { render :add_reply }
+        else
+          format.js { render :reply_error }
+        end
       end
     end
   end
@@ -62,7 +68,6 @@ class CommentsController < ApplicationController
   def destroy
     @comment.destroy
     respond_to do |format|
-      flash.now[:notice] = 'コメントが削除されました。'
       format.js { render :index }
     end
   end

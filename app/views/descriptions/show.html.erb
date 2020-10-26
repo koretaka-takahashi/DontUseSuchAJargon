@@ -11,10 +11,12 @@
 
 <!-- コメント入力欄 -->
 <%= render partial: 'comments/form', locals: { comment: @comment, description: @description, term: @term } %>
+
+<!-- FLASH用。必要な時だけnoticeを出す為に空にしてある -->
 <div id="comment_index_notice"></div>
 <hr>
 
-<!-- コメント一覧　→下のformの方でハマった時termも渡して解決したのでここでももしもの時は試して見る（その時は無くてもエラーにならなかったため未記述） -->
+<!-- コメント一覧（termも渡す必要が出てくるかも） -->
 <div id="comments_area">
   <%= render partial: 'comments/index', locals: { comments: @comments, description: @description } %>
 </div>

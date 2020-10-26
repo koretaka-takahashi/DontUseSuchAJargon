@@ -1,4 +1,16 @@
-$("#this_comment_<%= @comment.id %>").html("<%= j render 'comments/edit', term: @term, description: @description, comment: @comment %>");
-$("#this_comment4_<%= @comment.id %>").html("<%= j render 'comments/edit', term: @term, description: @description, comment: @comment %>");
+<%# 編集ボタンを押した場合に呼ばれる %>
+
+<%# 何かFLASHが出ていた場合はそれをリセット %>
 $("#comment_index_notice").html('')
+
+<%# 何かエラー文が出ていた場合はそれをリセット（こっちのidじゃないと消えなかった） %>
+$("#create_error_area").html('')
+
+<%# 編集フォームをレンダー（普通のコメントの場合） %>
+$("#this_comment_<%= @comment.id %>").html("<%= j render 'comments/edit', term: @term, description: @description, comment: @comment %>");
+
+<%# 編集フォームをレンダー（返信の場合） %>
+$("#this_comment4_<%= @comment.id %>").html("<%= j render 'comments/edit', term: @term, description: @description, comment: @comment %>");
+
+console.log("editを通りました")
 

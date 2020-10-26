@@ -1,4 +1,4 @@
-<%# コメントの保存に失敗した場合に呼ばれる %>
+<%# 返信の保存に失敗した場合に呼ばれる %>
 
 <%# 何かFLASHが出ていた場合はそれをリセット %>
 $("#comment_index_notice").html('')
@@ -7,6 +7,6 @@ $("#comment_index_notice").html('')
 $("#edit_error_area").html('');
 
 <%# form上のエラー用エリアにエラー用ファイルをレンダー（遷移ない為必要） %>
-$("#create_error_area").html("<%= j(render 'comments/comment_error', { comment: @comment }) %>")
+$("#reply_error_area").html("<%= j(render 'comments/comment_error', { comment: @comment }) %>")
 
-console.log("create_errorを通りました")
+console.log("reply_errorを通りました")

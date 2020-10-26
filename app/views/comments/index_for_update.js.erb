@@ -1,5 +1,7 @@
+<%# コメントのupdate後に呼ばれる %>
+
 $("#comments_area").html("<%= j(render 'comments/index', { comments: @comment.description.comments.where(parent_id: nil).order(created_at: :asc), description: @description, term: @term }) %>");
 $("textarea").val('');
 $("#create_error_area").html('');
 $("#this_comment_<%= @comment.id %>").html('<div id="comment_index_notice"><%= notice %></div>');
-console.log("ううううううう")
+console.log("index_for_updateを通りました")

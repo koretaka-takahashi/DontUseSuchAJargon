@@ -1,3 +1,5 @@
+<%# createするのが返信だった場合に呼ばれる %>
+
 <%# インデックス用のid部分にある特定のコメントの返信一覧を更新 %>
 $("#this_comment3_<%= @comment.parent.id %>").html("<%= j render 'comments/reply_index', term: @term, description: @description, comments: @comment.parent.replies.order(created_at: :asc) %>");
 <%# 「コメントの返信中...」を消す %>
@@ -8,4 +10,4 @@ $("#this_comment2_<%= @comment.parent.id %>").html('');
 $("#this_comment4_<%= @comment.parent.id %>").html('<div id="comment_index_notice"><%= notice %></div>');
 $("#this_comment_<%= @comment.parent.id %>").html('<div id="comment_index_notice"><%= notice %></div>');
 
-console.log("あああああああ")
+console.log("add_replyを通りました")

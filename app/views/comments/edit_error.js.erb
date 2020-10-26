@@ -1,1 +1,6 @@
+<%# updateに失敗した場合に呼ばれる %>
+
+<%# form上のエラー用エリアにエラー用ファイルをレンダー（遷移ない為必要） %>
 $("#edit_error_area").html("<%= j(render 'comments/comment_error', { comment: @comment }) %>")
+
+console.log("edit_errorを通りました")

@@ -1,20 +1,22 @@
+<!-- 解説showページのコメント毎の返信一覧 -->
+
 <div id="comments_index">
   <% comments.order(created_at: :asc).each do |comment| %>
     <% if comment.id.present? %>
-      <div id="for_this_comment4"> <!-- JSファイルで下記divタグを指定してもRubyのコードがあり反応してくれない為作成した -->
+
+      <!-- コメント特定 -->
+      <div id="for_this_comment4">
         <div class="comment-content" id="this_comment4_<%= comment.id %>"></div> <!-- コメントを特定しedit.js.erb、_edit.html.erbとレンダリングする為 -->
       </div>
+
       <p>
         <%= link_to "編集", edit_term_description_comment_path(@term, @description, comment), remote: true %> <!-- id: "comment_edit_button"は使われてなかったので取った -->
         <%= link_to "削除", term_description_comment_path(@term, @description, comment), method: :delete, remote: true, data: { confirm: "本当に削除しますか?"} %>
       </p>
+
+      <!-- 返信（子コメント） -->
       <p><%= simple_format comment.content %></p>
-      <!-- ここから返信機能なので一旦排除 -->
-      <!-- <%= link_to "返信する", new_term_description_comment_path(@term, @description, comment: comment, id: comment.id), remote: true %> -->
-      <!-- <div id="for_this_comment2"> <!-- JSファイルで下記divタグを指定してもRubyのコードがあり反応してくれない為作成した -->
-        <!-- <div class="comment-content" id="this_comment2_<%= comment.id %>"></div> <!-- コメントを特定しreply.js.erb、_reply_form.html.erbとレンダリングする為 -->
-      <!-- </div> -->
-      <!-- ここまで返信機能なので一旦排除 -->
+
     <% end %>
   <% end %>
 </div>

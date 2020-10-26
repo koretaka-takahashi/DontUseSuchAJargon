@@ -1,16 +1,15 @@
-<%= notice %>
+<!-- 編集ボタンから出されるコメント編集用フォーム -->
+
+<!-- FLASH用。編集、返信時が優先。 -->
+<% if notice %>
+  <div id="comment_index_notice"><%= notice %></div>
+<% end %>
+
 <%= form_with(model: [term, description, comment] ) do |f| %>
+
+  <!-- 編集用のフォームにエラー文を出すにはこうして用途毎に分けざるを得ない -->
   <div id="edit_error_area"></div>
-  <% if comment.errors.any? %>
-    <div id="error_explanation">
-      <p><%= "#{comment.errors.count}件のエラーがあります。" %></p>
-      <ol>
-        <% comment.errors.full_messages.each do |m| %>
-          <li><%= m %></li>
-        <% end %>
-      </ol>  
-    </div>
-  <% end %>
+
   <ul class="form comment_form">
     <div class="comment_content">
       <li><%= f.text_area :content %></li>

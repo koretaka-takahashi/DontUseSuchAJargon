@@ -1,18 +1,14 @@
+<!-- コメント一覧の返信ボタンから出る返信用フォーム -->
+
+<!-- FLASH用。編集、返信時が優先。 -->
 <% if notice %>
   <div id="comment_index_notice"><%= notice %></div>
 <% end %>
+
 <%= form_with(model: [term, description, reply]) do |f| %>
+
   <div id="reply_error_area"></div>
-  <% if reply.errors.any? %>
-    <div id="error_explanation">
-      <p><%= "#{reply.errors.count}件のエラーがあります。" %></p>
-      <ol>
-        <% reply.errors.full_messages.each do |m| %>
-          <li><%= m %></li>
-        <% end %>
-      </ol>  
-    </div>
-  <% end %>
+  
   <ul class="form reply_form">
     <div class="reply_content">
       <li><%= f.text_area :content %></li>

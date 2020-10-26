@@ -1,8 +1,10 @@
-<% if comment.errors.any? %> <!-- ifが無いとフォームで常に０件のエラーが表示されてしまう -->
-  <p><%= "#{comment.errors.count}件のエラーがあります。" %></p>
-  <ol>
-    <% comment.errors.full_messages.each do |m| %>
-      <li><%= m %></li>
-    <% end %>
-  </ol>  
+<% if comment.errors.any? %>
+  <div id="error_explanation">
+    <p><%= "#{comment.errors.count}件のエラーがあります。" %></p>
+    <ol>
+      <% comment.errors.full_messages.each do |m| %>
+        <li><%= m %></li>
+      <% end %>
+    </ol> 
+  </div> 
 <% end %>
