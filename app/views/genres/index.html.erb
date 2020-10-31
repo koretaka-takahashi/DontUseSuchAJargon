@@ -1,8 +1,16 @@
+<!-- ジャンルの一覧ページ（トップページ） -->
+
+<!-- とりあえずのTerm一覧リンク -->
 <%= link_to ">>ジャンルを指定せずTerm一覧へ（仮）", terms_path %>
+
+<!-- ジャンル一覧 -->
 <% @genres.each do |genre| %>
-  <h1><%= link_to "#{genre.name}", genre_path(genre.id) %></h1>
-  <% genre.tags.order(:created_at).each do |tag| %>
+  <!-- ジャンル名 -->
+  <h1><%= link_to genre.name, genre_path(genre.id) %></h1>
+  <!-- ジャンル内タグを一定数表示 -->
+  <% genre.tags.order(:created_at).limit(20).each do |tag| %>
     <%= link_to tag.name, genre_tag_path(genre, tag), class:"btn btn-primary border-dark text-white btn-sm" %>
   <% end %>
-  <p><%= link_to "タグ一覧へ", genre_tags_path(genre) %></p>
+  <!-- ジャンル内タグ一覧へのリンク -->
+  <p><%= link_to "#{genre.name}のタグ一覧へ", genre_tags_path(genre) %></p>
 <% end %>

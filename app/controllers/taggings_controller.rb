@@ -1,7 +1,7 @@
 class TaggingsController < ApplicationController # 多分これいらない?
+  before_action :authenticate_user! # ログイン済みかどうか。
   before_action :set_term, only: [:create] # ←も↓もnewに必要？
   before_action :set_tags, only: [:create] # タグ付け時に選ぶリスト用に取得しておく（いらねーか？！）
-  before_action :authenticate_user! # ログイン済みかどうか。
   
   def new
     @tagging = Tagging.new

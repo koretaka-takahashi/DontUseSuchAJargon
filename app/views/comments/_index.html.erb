@@ -1,31 +1,43 @@
-
-<!-- 解説showページに常設のコメント一覧 -->
+<!-- コメント一覧（解説詳細ページにレンダー） -->
 
 <div id="comments_index">
+  <!-- 解説に付いたコメント一覧 -->
   <% comments.each do |comment| %>
 
-    <!-- コメント特定 -->
+    <!-- コメント編集時ここにnoticeを表示する為のid -->
     <div id="for_this_comment">
-      <div class="comment-content" id="this_comment_<%= comment.id %>"></div> <!-- 編集ボタンに対応するコメントを特定/特定コメントの上部にnoticeを再現 -->
+      <div class="comment-content" id="this_comment_<%= comment.id %>"></div>
     </div>
 
     <p>
-      <%= link_to "編集", edit_term_description_comment_path(@term, @description, comment), remote: true %>
-      <%= link_to "削除", term_description_comment_path(@term, @description, comment), method: :delete, remote: true, data: { confirm: "本当に削除しますか?"} %>
+      <!-- コメント投稿者 -->
+      <%= comment.user.name %>
+      <!-- コメント投稿時間 -->
+      <%= comment.created_at.strftime("%F %R") %>
+      <!-- 投稿者には編集削除権限 -->
+      <% if comment.user == current_user %>
+        <%= link_to "編集", edit_term_description_comment_path(@term, @description, comment), remote: true %>
+        <%= link_to "削除", term_description_comment_path(@term, @description, comment), method: :delete, remote: true, data: { confirm: "本当に削除しますか?"} %>
+      <% end %>
     </p>
 
-    <!-- 親コメント -->
+    <!-- コメント本文 -->
     <p><%= simple_format comment.content %></p>
 
-    <!-- 親コメントへの返信機能 （返信用フォームを表示）-->
-    <%= link_to "返信する", new_term_description_comment_path(@term, @description, comment: comment, id: comment.id), remote: true %>
+    <!-- コメントへの返信フォームを表示する為のボタン（未ログイン時は非表示） -->
+    <% if user_signed_in? %>
+      <%= link_to "返信する", new_term_description_comment_path(@term, @description, comment: comment, id: comment.id), remote: true %>
+    <% end %>
+
+    <!-- ここに返信フォームがレンダーされる -->
     <div id="for_this_comment2">
-      <div class="comment-content" id="this_comment2_<%= comment.id %>"></div> <!-- 返信ボタンに対応するコメントを特定/特定コメントの下部にnoticeを再現 -->
+      <div class="comment-content" id="this_comment2_<%= comment.id %>"></div>
     </div>
 
-    <!-- 親コメントへの返信一覧 -->    <!-- ↓↓↓ここ次回疑問！出せるよ多分 -->
+    <!-- 返信完了時に返信一覧を更新する為のid -->
     <div id="for_this_comment3">
-      <div class="reply-index" id="this_comment3_<%= comment.id %>"> <!-- 返信一覧を表示するコメントを特定/返信一覧上部にnoticeを再現 -->
+      <div class="reply-index" id="this_comment3_<%= comment.id %>">
+        <!-- コメントへの返信一覧をレンダーしている -->
         <%= render partial: 'comments/reply_index', locals: { comments: comment.replies, description: @description } %>
       </div>
     </div>

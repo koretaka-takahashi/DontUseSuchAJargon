@@ -1,20 +1,29 @@
+<!-- Termの詳細ページ -->
+
+<!-- Termのジャンル名 -->
 <% if @term.genre.present? %>
   <%= "(#{@term.genre.name})" %>
 <% else %>
-  <%= "(ジャンル指定なし)" %>
+  <%= "(ジャンル未指定)" %>
 <% end %>
+<!-- Termに付いたタグ一覧 -->
 <% @term.tags.each do |tag| %>
   <%= link_to tag.name, genre_tag_path(tag.genre, tag), class:"btn btn-primary border-dark text-white btn-sm" %>
 <% end %>
+<!-- Term名 -->
 <h1><%= @term.name %></h1>
 
+<%= link_to @term.user.name, user_path(@term.user_id) %>
+<!-- タグ付け用タグリスト（未ログイン時はログイン画面へ） -->
 <% if Tag.where(genre_id: @term.genre_id).where.not(id: @term.tags.ids).count != 0 %>
   <%= render "taggings/form" %>
 <% else %>  
   <%= "（タグ付けできるタグはこれ以上ありません。）" %>
 <% end %>
 
+<!-- 投稿者以外にも編集権限あり（未ログイン時はログイン画面へ） -->
 <p><%= link_to "編集", edit_term_path(@term) %></p>
+<!-- 解説作成へのリンク（未ログイン時はログイン画面へ） -->
 <p><%= link_to "解説する", new_term_description_path(@term) %></p>
 
 <!--現在は作成者にも権限与えなくていいと判断。
@@ -23,19 +32,25 @@
   <%= link_to "削除", term_path(@term), method: :delete, data: {confirm: "「#{@term.name}」を削除してよろしいですか？"} %>
 <% end %>
 いずれ管理者にのみ権限付与する予定。-->
+
 <div id="descriptions-list">
+  <!-- Termに付いた解説リスト -->
   <% @descriptions.each do |description| %>
     <hr>
     <h2><%= @term.name %>とは</h2>
     <p>
+      <!-- 解説作成日時 -->
       <%= description.created_at.strftime("%F %R") %>
+      <!-- 投稿者には編集削除権限 -->
       <% if description.user == current_user %>
         <%= link_to "編集", edit_term_description_path(@term, description) %>
         <%= link_to "削除", term_description_path(@term, description), method: :delete, data: {confirm: "解説を削除してよろしいですか？"} %>
       <% end %>
     </p> 
     <p>
+      <!-- 解説本文を一定文字数表示 -->
       <%= simple_format description.content.truncate(100) %>
+      <!-- 解説本文を全表示へのリンク -->
       <%= link_to "全て見る", term_description_path(@term, description) %>
     </p>
   <% end %>

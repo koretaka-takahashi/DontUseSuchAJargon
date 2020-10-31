@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show] # ログイン済みかどうか。
   before_action :set_comment, only: [:new, :edit, :update, :destroy]
   before_action :set_description, only: [:index, :new, :create, :edit, :update, :destroy]
   before_action :set_term, only: [:new, :create, :edit, :update, :destroy]

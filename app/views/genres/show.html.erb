@@ -1,14 +1,20 @@
+<!-- ジャンルの詳細ページ -->
+
+<h1><%= "<#{@genre.name}>関連のTerm一覧" %></h1>
 <ul>
+  <!-- ジャンル内のTerm一覧 -->
   <% @terms.each do |term| %>
+    <!-- Term名 -->
     <li class="term-name">
-      <%= link_to "#{term.name}", term_path(term) %>
-      <%= "(#{term.genre.name})" %>
+      <h2><%= link_to "#{term.name}", term_path(term) %></h2>
     </li>
     <li class="tag-list">
+      <!-- Termのタグ一覧 -->
       <% term.tags.each do |tag| %>
         <%= link_to tag.name, genre_tag_path(@genre, tag), class:"btn btn-primary border-dark text-white btn-sm" %>
       <% end %>
     </li>
+    <!-- 付いた解説数 -->
     <li class="description-numbers">
       <%= link_to "解説(#{term.descriptions.count})", term_path(term, anchor: "descriptions-list") %>
     </li>

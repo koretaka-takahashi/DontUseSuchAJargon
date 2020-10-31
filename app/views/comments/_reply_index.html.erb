@@ -1,22 +1,32 @@
-<!-- 解説showページのコメント毎の返信一覧 -->
+<!-- コメント毎の返信一覧（解説詳細ページにレンダーされているコメント一覧ページにレンダー） -->
 
-<div id="comments_index">
+<div id="replies_index">
+  <!-- 返信一覧 -->
   <% comments.order(created_at: :asc).each do |comment| %>
     <% if comment.id.present? %>
+      <div id="each_reply">
 
-      <!-- コメント特定 -->
-      <div id="for_this_comment4">
-        <div class="comment-content" id="this_comment4_<%= comment.id %>"></div> <!-- コメントを特定しedit.js.erb、_edit.html.erbとレンダリングする為 -->
+        <!-- ここに編集フォームをレンダーする -->
+        <div id="for_this_comment4">
+          <div class="comment-content" id="this_comment4_<%= comment.id %>"></div>
+        </div>
+
+        <p>
+          <!-- 返信投稿者名 -->
+          <%= comment.user.name %>
+          <!-- 返信投稿日時 -->
+          <%= comment.created_at.strftime("%F %R") %>
+          <!-- 投稿者には編集削除権限 -->
+          <% if comment.user == current_user %>
+            <%= link_to "編集", edit_term_description_comment_path(@term, @description, comment), remote: true %>
+            <%= link_to "削除", term_description_comment_path(@term, @description, comment), method: :delete, remote: true, data: { confirm: "本当に削除しますか?"} %>
+          <% end %>
+        </p>
+
+        <!-- 返信本文 -->
+        <p><%= simple_format comment.content %></p>
+
       </div>
-
-      <p>
-        <%= link_to "編集", edit_term_description_comment_path(@term, @description, comment), remote: true %> <!-- id: "comment_edit_button"は使われてなかったので取った -->
-        <%= link_to "削除", term_description_comment_path(@term, @description, comment), method: :delete, remote: true, data: { confirm: "本当に削除しますか?"} %>
-      </p>
-
-      <!-- 返信（子コメント） -->
-      <p><%= simple_format comment.content %></p>
-
     <% end %>
   <% end %>
 </div>

@@ -1,7 +1,7 @@
 class DescriptionsController < ApplicationController
+  before_action :authenticate_user!, except: [:show] # ログイン済みかどうか。
   before_action :set_description, only: [:show, :edit, :update, :destroy]
   before_action :set_term, only: [:show, :new, :create] # 親になるTermを設定
-  before_action :authenticate_user!, except: [:show]
   before_action :user_check, only: [:edit, :update, :destroy] # 作成者かどうか。
 
   def show

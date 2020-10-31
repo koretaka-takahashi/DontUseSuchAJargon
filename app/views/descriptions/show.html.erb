@@ -1,11 +1,17 @@
+<!-- 解説の詳細ページ -->
+
+<!-- 解説するTerm名 -->
 <h1><%= link_to @term.name, term_path(@term) %></h1>とは
 <p>
+  <!-- 解説の作成時間 -->
   <%= @description.created_at.strftime("%F %R") %>
+  <!-- 投稿者には編集削除権限 -->
   <% if @description.user == current_user %>
     <%= link_to "編集", edit_term_description_path(@term, @description) %>
     <%= link_to "削除", term_description_path(@term, @description), method: :delete, data: {confirm: "解説を削除してよろしいですか？"} %>
   <% end %>
 </p>
+<!-- 解説本文 -->
 <p><%= simple_format @description.content %></p>
 <hr>
 
@@ -16,7 +22,7 @@
 <div id="comment_index_notice"></div>
 <hr>
 
-<!-- コメント一覧（termも渡す必要が出てくるかも） -->
+<!-- 解説に付いたコメント一覧（termも渡す必要が出てくるかも） -->
 <div id="comments_area">
   <%= render partial: 'comments/index', locals: { comments: @comments, description: @description } %>
 </div>

@@ -1,7 +1,7 @@
 class TagsController < ApplicationController
+before_action :authenticate_user!, except: [:index, :show] # ログイン済みかどうか。
 before_action :set_tag, only: [:show, :edit, :update]
 before_action :set_genre, only: [:index, :show, :new, :create] # 親ジャンルをセット
-before_action :authenticate_user!, except: [:index, :show] # ログイン済みかどうか。
 # タグに関しては運用自体考え中。
 
   def index

@@ -11,7 +11,7 @@
   <% end %>
   <ul class="form tagging_form">   
     <div class="tagging_tag">
-      <li><%= f.select :tag_id, Tag.where(genre_id: @term.genre_id).where.not(id: @term.tags.ids).map { |t| [t.name, t.id]}, include_blank: '該当なし', multiple: true  %></li>
+      <li><%= f.select :tag_id, Tag.where(genre_id: @term.genre_id).where.not(id: @term.tags.ids).map { |t| [t.name, t.id]}, include_blank: '', multiple: true  %></li>
     </div> 
     <div class="submit tagging_submit">      
       <li><%= f.submit "タグ付けする" %></li>

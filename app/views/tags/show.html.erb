@@ -1,9 +1,15 @@
-<h1><%= @tag.name %>のタグを付けられた用語一覧</h1>
+<!-- タグ詳細ページ -->
+
+<!-- タグ名 -->
+<h1><%= "#{@tag.name}(#{@genre.name})のタグを付けられた用語一覧" %></h1>
 
 <ul>
+  <!-- タグに紐づいたTermの一覧 -->
   <% @tag.terms.each do |term| %>
     <li class="term-name">
+      <!-- Term名 -->
       <%= link_to "#{term.name}", term_path(term) %>
+      <!-- ジャンル名 -->
       <% if term.genre.present? %>
         <%= "(#{term.genre.name})" %>
       <% else %>
@@ -11,10 +17,12 @@
       <% end %>
     </li>
     <li class="tag-list">
+      <!-- Termに紐づいたタグ一覧 -->
       <% term.tags.each do |tag| %>
         <%= link_to tag.name, genre_tag_path(tag.genre, tag), class:"btn btn-primary border-dark text-white btn-sm" %>
       <% end %>
     </li>
+    <!-- Termに付いた解説数 -->
     <li class="description-numbers">
       <%= link_to "解説(#{term.descriptions.count})", term_path(term, anchor: "descriptions-list") %> <!-- アンカーってなんだっけ。。 -->
     </li>

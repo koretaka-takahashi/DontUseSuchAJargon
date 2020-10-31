@@ -1,18 +1,28 @@
+<!-- Termの一覧ページ -->
+
 <ul>
   <% @search_terms.each do |term| %>
+    <!-- Term名 -->
     <li class="term-name">
-      <%= link_to "#{term.name}", term_path(term) %>
+      <h2>
+        <%= link_to "#{term.name}", term_path(term) %>
+      </h2>
+    </li>
+    <!-- Termのジャンル名 -->
+    <li class="genre-name">
       <% if term.genre.present? %>
         <%= "(#{term.genre.name})" %>
       <% else %>
         <%= "(ジャンル選択なし)" %>
       <% end %>
     </li>
+    <!-- そのジャンルのタグリスト -->
     <li class="tag-list">
       <% term.tags.each do |tag| %>
         <%= link_to tag.name, genre_tag_path(tag.genre, tag), class:"btn btn-primary border-dark text-white btn-sm" %>
       <% end %>
     </li>
+    <!-- 付いた解説の数 -->
     <li class="description-numbers">
       <%= link_to "解説(#{term.descriptions.count})", term_path(term, anchor: "descriptions-list") %>
     </li>
