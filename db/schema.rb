@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_31_094511) do
+ActiveRecord::Schema.define(version: 2020_11_02_013800) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,15 @@ ActiveRecord::Schema.define(version: 2020_10_31_094511) do
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "keeps", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "term_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["term_id"], name: "index_keeps_on_term_id"
+    t.index ["user_id"], name: "index_keeps_on_user_id"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -111,6 +120,8 @@ ActiveRecord::Schema.define(version: 2020_10_31_094511) do
   add_foreign_key "comments", "users"
   add_foreign_key "descriptions", "terms"
   add_foreign_key "descriptions", "users"
+  add_foreign_key "keeps", "terms"
+  add_foreign_key "keeps", "users"
   add_foreign_key "likes", "descriptions"
   add_foreign_key "likes", "users"
   add_foreign_key "taggings", "tags"

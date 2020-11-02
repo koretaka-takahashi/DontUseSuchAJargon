@@ -4,6 +4,7 @@ class User < ApplicationRecord
   has_many :tags # これもdependent: :destroy は無くていい
   has_many :comments # これもdependent: :destroy は無くていい
   has_many :likes, dependent: :destroy
+  has_many :keeps, dependent: :destroy
   validates :name, presence: true, length: { maximum: 50 }
   validates :email, presence: true, length: { maximum: 100 }
   validates :profile, length: { maximum: 1500 }
@@ -16,5 +17,10 @@ class User < ApplicationRecord
   # いいね！しているか否か
   def already_liked?(description)
     self.likes.exists?(description_id: description.id)
+  end
+
+  # キープしているか否か
+  def already_keeped?(term)
+    self.keeps.exists?(term_id: term.id)
   end
 end

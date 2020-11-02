@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       resource :like, only: [:create, :destroy]
     end
     resources :taggings, only: [:create, :destroy]
+    resource :keep, only: [:create, :destroy]
   end
   
   if Rails.env.development?

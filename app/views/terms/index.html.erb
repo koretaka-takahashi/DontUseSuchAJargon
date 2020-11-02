@@ -4,6 +4,14 @@
   <% @search_terms.each do |term| %>
     <!-- Term名 -->
     <li class="term-name">
+      <!-- キープアイコン -->
+      <% if current_user %>
+        <% if current_user.already_keeped?(term) %>
+          <i class="fas fa-star"></i>
+        <% else %>
+          <i class="far fa-star"></i>
+        <% end %>
+      <% end %>
       <h2>
         <%= link_to "#{term.name}", term_path(term) %>
       </h2>
