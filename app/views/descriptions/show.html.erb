@@ -13,9 +13,16 @@
 </p>
 <!-- 解説本文 -->
 <p><%= simple_format @description.content %></p>
+
+<!-- いいね部分 -->
+<div id="like_section">
+  <%= render partial: "likes/like", locals: { term: @term, description: @description } %>
+</div>
+
 <hr>
 
 <!-- コメント入力欄 -->
+<p>コメントを書く</p>
 <%= render partial: 'comments/form', locals: { comment: @comment, description: @description, term: @term } %>
 
 <!-- FLASH用。必要な時だけnoticeを出す為に空にしてある -->

@@ -2,10 +2,6 @@ class TaggingsController < ApplicationController # 多分これいらない?
   before_action :authenticate_user! # ログイン済みかどうか。
   before_action :set_term, only: [:create] # ←も↓もnewに必要？
   before_action :set_tags, only: [:create] # タグ付け時に選ぶリスト用に取得しておく（いらねーか？！）
-  
-  def new
-    @tagging = Tagging.new
-  end
 
   def create
     @tagging = @term.taggings.build(tagging_params)
@@ -30,7 +26,7 @@ class TaggingsController < ApplicationController # 多分これいらない?
     @tags = Tag.where(genre_id: @term.genre_id).order(:name)
   end  
 
-  def tagging_params # 必要なさそう？
+  def tagging_params # 必要なさそう？でも上で使ってるので、必要ないならそっちも変えないと。
     params.require(:tagging).permit(:tag_id)
   end   
 end

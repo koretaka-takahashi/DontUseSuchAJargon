@@ -8,8 +8,9 @@ Rails.application.routes.draw do
   resources :terms, except: [:new] do
     resources :descriptions, except: [:index] do
       resources :comments
+      resource :like, only: [:create, :destroy]
     end
-    resources :taggings
+    resources :taggings, only: [:create, :destroy]
   end
   
   if Rails.env.development?
