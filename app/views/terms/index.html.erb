@@ -15,6 +15,10 @@
       <h2>
         <%= link_to "#{term.name}", term_path(term) %>
       </h2>
+      <!-- 投稿者には編集ボタン表示 -->
+      <% if term.user == current_user %>
+        <%= link_to "編集", edit_term_path(term) %>
+      <% end %>
     </li>
     <!-- Termのジャンル名 -->
     <li class="genre-name">

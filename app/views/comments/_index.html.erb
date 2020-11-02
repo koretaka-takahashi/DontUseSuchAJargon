@@ -14,7 +14,17 @@
       <%= comment.user.name %>
       <!-- コメント投稿時間 -->
       <%= comment.created_at.strftime("%F %R") %>
-      <!-- 投稿者には編集削除権限 -->
+
+      <!-- 編集ボタンは投稿者及び管理者へ表示 -->
+      <% if current_user == comment.user || current_user.try(:admin?) %>
+        <%= link_to "編集", edit_term_description_comment_path(@term, @description, comment), remote: true %>
+      <% end %>
+      <!-- 削除ボタンは管理者へのみ表示 -->
+      <% if current_user.try(:admin?) %>
+        <%= link_to "削除", term_description_comment_path(@term, @description, comment), method: :delete, remote: true, data: { confirm: "本当に削除しますか?"} %>
+      <% end %>
+
+      <!-- 投稿者には編集削除ボタン表示 -->
       <% if comment.user == current_user %>
         <%= link_to "編集", edit_term_description_comment_path(@term, @description, comment), remote: true %>
         <%= link_to "削除", term_description_comment_path(@term, @description, comment), method: :delete, remote: true, data: { confirm: "本当に削除しますか?"} %>

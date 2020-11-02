@@ -2,7 +2,9 @@ class DescriptionsController < ApplicationController
   before_action :authenticate_user!, except: [:show] # ログイン済みかどうか。
   before_action :set_description, only: [:show, :edit, :update, :destroy]
   before_action :set_term, only: [:show, :new, :create] # 親になるTermを設定
-  before_action :user_check, only: [:edit, :update, :destroy] # 作成者かどうか。
+  before_action :user_check, only: [:edit, :update, :destroy] # 投稿者に編集削除権限
+  before_action :admin_check, only: [:edit, :update, :destroy] # 管理者に編集削除権限
+
 
   def show
     # コメント一覧で親コメントのみ表示する
@@ -57,6 +59,7 @@ class DescriptionsController < ApplicationController
     params.require(:description).permit(:content, :user_id, :term_id)
   end
 
+  # 投稿者本人かどうか
   def user_check
     if @description.user != current_user
       flash[:alert] = "権限がありません。"

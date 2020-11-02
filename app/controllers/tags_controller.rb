@@ -2,14 +2,14 @@ class TagsController < ApplicationController
 before_action :authenticate_user!, except: [:index, :show] # ログイン済みかどうか。
 before_action :set_tag, only: [:show, :edit, :update]
 before_action :set_genre, only: [:index, :show, :new, :create] # 親ジャンルをセット
+before_action :user_check, only: [:edit, :update, :destroy] # 作成者に編集削除権限
+before_action :admin_check, only: [:edit, :update, :destroy] # 管理者に編集削除権限
+
 # タグに関しては運用自体考え中。
 
   def index
     @tags = Tag.where(genre_id: @genre.id).order(:name)
   end
-
-  def show
-  end   
 
   def new
     @tag = Tag.new
@@ -48,5 +48,13 @@ before_action :set_genre, only: [:index, :show, :new, :create] # 親ジャンル
 
   def tag_params
     params.require(:tag).permit(:name)
+  end
+
+  # 投稿者本人かどうか
+  def user_check
+    if @tag.user != current_user
+      flash[:alert] = "権限がありません。"
+      redirect_back(fallback_location: root_path)
+    end  
   end
 end

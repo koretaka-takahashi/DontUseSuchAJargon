@@ -1,6 +1,6 @@
 <!-- Termの詳細ページにレンダーされるキープ部分 -->
 
-<% if current_user.already_keeped?(term) %>
+<% if current_user && current_user.already_keeped?(term) %>
   <%= link_to term_keep_path(term), method: :delete, remote: true do %>
     <i class="fas fa-star"></i><%= "キープ済み" %>
   <% end %>

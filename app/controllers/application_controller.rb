@@ -20,4 +20,12 @@ class ApplicationController < ActionController::Base
     @term = Term.new
     @genres = Genre.all
   end
+
+  # ログインユーザーが管理者かどうか
+  def admin_check
+    if current_user.admin = false
+      flash[:alert] = "権限がありません。"
+      redirect_back(fallback_location: root_path)
+    end  
+  end
 end

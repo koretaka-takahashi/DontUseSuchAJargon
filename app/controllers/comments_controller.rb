@@ -3,6 +3,8 @@ class CommentsController < ApplicationController
   before_action :set_comment, only: [:new, :edit, :update, :destroy]
   before_action :set_description, only: [:index, :new, :create, :edit, :update, :destroy]
   before_action :set_term, only: [:new, :create, :edit, :update, :destroy]
+  before_action :user_check, only: [:edit, :update, :destroy] # 投稿者に編集削除権限
+  before_action :admin_check, only: [:destroy] # 管理者に削除権限
 
   def index
   end
@@ -89,5 +91,13 @@ class CommentsController < ApplicationController
 
   def comment_params
     params.require(:comment).permit(:user_id, :description_id, :content, :parent_id)
+  end
+
+  # 投稿者本人かどうか
+  def user_check
+    if @comment.user != current_user
+      flash[:alert] = "権限がありません。"
+      redirect_back(fallback_location: root_path)
+    end  
   end
 end

@@ -8,10 +8,3 @@ class GenresController < ApplicationController
     @terms = @genre.terms.order(created_at: :desc)
   end  
 end
-
-private
-
-# いらなくね？
-# def genre_params
-#   params.require(:genre).permit(:name)
-# end

@@ -4,8 +4,10 @@ class TermsController < ApplicationController
   before_action :set_genres, only: [:new, :edit] # 選択ボックスの為ジャンルを全てセット。
   # before_action :set_tags, only: [:show] # タグ付け時に選ぶリスト用に取得しておく（いらない？）
   before_action :set_tagging, only: [:show]
-  # before_action :user_check, only: [:edit, :update, :destroy]
-  # ↑ 作成者かどうか。現在は不要と判断。いずれ管理者機能実装時に管理者にのみ権限付与予定。
+  before_action :user_check, only: [:edit, :update] # 投稿者に編集権限
+  before_action :admin_check, only: [:edit, :update, :destroy] # 管理者に編集削除権限
+
+
 
   def index
   end
@@ -20,7 +22,6 @@ class TermsController < ApplicationController
 
   def create
     @term = current_user.terms.build(term_params)
-    # @termsは@search_termsがすでにあるのでJSに変数渡す時に@search_termsで渡してあげれば良いと予想
     if @term.save
       redirect_to term_path(@term), notice: '新しくTermを登録しました。'
     else
@@ -67,6 +68,7 @@ class TermsController < ApplicationController
     params.require(:term).permit(:name, :user_id, :genre_id, tag_ids: [])
   end
 
+  # 投稿者本人かどうか
   def user_check
     if @term.user != current_user
       flash[:alert] = "権限がありません。"
