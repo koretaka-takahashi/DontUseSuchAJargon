@@ -34,7 +34,7 @@ class TermsController < ApplicationController
 
   def update
     if @term.update(term_params)
-      redirect_to term_path(@term), notice: "更新しました。"
+      redirect_to term_path(@term), notice: "Termを更新しました。"
     else
       render :new
     end
@@ -42,7 +42,7 @@ class TermsController < ApplicationController
 
   def destroy
     @term.destroy
-    redirect_to terms_path, notice: "タイトル「#{@term.name}」を削除しました。"
+    redirect_to terms_path, notice: "Term 「#{@term.name}」を削除しました。"
   end
 
   private
@@ -68,9 +68,9 @@ class TermsController < ApplicationController
     params.require(:term).permit(:name, :user_id, :genre_id, tag_ids: [])
   end
 
-  # 投稿者本人かどうか
+  # 投稿者本人もしくは管理者かどうか
   def user_check
-    if @term.user != current_user
+    if @term.user != current_user && current_user.try(:admin?) == false
       flash[:alert] = "権限がありません。"
       redirect_back(fallback_location: root_path)
     end  

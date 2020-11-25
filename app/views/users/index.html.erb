@@ -1,1 +1,12 @@
-あとで消すと思う
+<!-- ユーザーの一覧ページ（管理者用） -->
+
+<h1>ユーザー一覧</h1>
+<ul>
+  <% @users.each do |user| %>
+    <!-- ユーザー名 -->
+    <li class="user-name">
+      <%= link_to "#{user.name}", user_path(user) %>
+    </li>
+    <hr>
+  <% end %>
+</ul>

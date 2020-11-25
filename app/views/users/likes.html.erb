@@ -1,0 +1,8 @@
+<h1>いいね！一覧</h1>
+
+<% @likes.each do |like| %>
+  <p>
+    <%= "<#{like.description.term.name}>に関する解説" %>
+    <%= link_to like.description.content.truncate(100), term_description_path(like.description.term, like.description ) %>
+  </p>
+<% end %>

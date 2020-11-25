@@ -1,7 +1,20 @@
 <!-- タグ詳細ページ -->
 
 <!-- タグ名 -->
-<h1><%= "#{@tag.name}(#{@genre.name})のタグを付けられた用語一覧" %></h1>
+<h1><%= "タグ: #{@tag.name}" %></h1>
+
+<p>
+  <!-- 編集ボタンは投稿者のみへ表示 -->
+  <% if current_user == @tag.user %>
+    <%= link_to "編集", edit_genre_tag_path(@genre, @tag) %>
+  <% end %>
+  <!-- 削除ボタンは管理者へのみ表示 -->
+  <% if current_user.try(:admin?) %>
+    <%= link_to "削除", genre_tag_path(@genre, @tag), method: :delete, data: {confirm: "Termを削除してよろしいですか？"} %>
+  <% end %>
+</p>
+
+<h2><%= "#{@tag.name}(#{@genre.name})のタグを付けられた用語一覧" %></h2>
 
 <ul>
   <!-- タグに紐づいたTermの一覧 -->
@@ -27,5 +40,8 @@
       <%= link_to "解説(#{term.descriptions.count})", term_path(term, anchor: "descriptions-list") %> <!-- アンカーってなんだっけ。。 -->
     </li>
     <hr>
+  <% end %>
+  <% if @tag.terms.count == 0 %>
+    <%= "タグ付けされたTermはありません。" %>
   <% end %>
 </ul>

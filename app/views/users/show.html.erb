@@ -1,6 +1,9 @@
 <p><%= @user.name %></p>
 <p><%= simple_format @user.profile %></p>
+<p>投稿した解説数:<%= @user.descriptions.count %></p>
 
-<% if current_user && @user == current_user %>
+<!-- 本人もしくは管理者のみ表示 -->
+<% if current_user && @user == current_user || current_user.try(:admin?) %>
   <p><%= link_to 'プロフィール変更', edit_user_registration_path %></p>
 <% end %>
+

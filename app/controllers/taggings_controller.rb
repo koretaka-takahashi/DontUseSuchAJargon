@@ -1,32 +1,30 @@
-class TaggingsController < ApplicationController # 多分これいらない?
+class TaggingsController < ApplicationController
   before_action :authenticate_user! # ログイン済みかどうか。
-  before_action :set_term, only: [:create] # ←も↓もnewに必要？
-  before_action :set_tags, only: [:create] # タグ付け時に選ぶリスト用に取得しておく（いらねーか？！）
+  before_action :set_term, only: [:create, :destroy]
+  before_action :admin_check, only: [:create, :destroy] # 管理者に削除権限
 
   def create
     @tagging = @term.taggings.build(tagging_params)
     if @tagging.save
-      redirect_to term_path(@term), notice: "タグ付けしました。"
+      redirect_to term_path(@term), notice: "#{@tagging.tag.name} をタグ付けしました。"
     else
       redirect_to term_path(@term)
     end
   end
 
-  def destroy # こっちもcreateに習って直さなきゃ。でも現状タグ付け外す実装は未定なのでもしその時があれば。
-    tagging = @term.tags.find(params[:id])
+  def destroy
+    tagging = @term.taggings.find_by(tag_id: params[:id])
+    tagging.destroy
+    redirect_to term_path(@term), notice: "タグ #{tagging.tag.name}を外しました。"
   end
 
   private
 
   def set_term
     @term = Term.find(params[:term_id])
-  end   
+  end
 
-  def set_tags
-    @tags = Tag.where(genre_id: @term.genre_id).order(:name)
-  end  
-
-  def tagging_params # 必要なさそう？でも上で使ってるので、必要ないならそっちも変えないと。
-    params.require(:tagging).permit(:tag_id)
-  end   
+  def tagging_params 
+    params.require(:tagging).permit(:tag_id, :term_id)
+  end
 end

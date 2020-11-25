@@ -1,0 +1,8 @@
+<h1>キープ一覧</h1>
+
+<% @keeps.each do |keep| %>
+  <p>
+    <%= link_to keep.term.name, term_path(keep.term) %>
+    <%= "(#{keep.term.genre.name})" %>
+  </p>
+<% end %>

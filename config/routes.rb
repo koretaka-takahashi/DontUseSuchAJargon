@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users
   root "genres#index"
-  resources :users, only: [:index, :show]
+  resources :users, only: [:index, :show, :destroy] do
+    member do
+      get :likes
+      get :keeps
+    end
+  end
   resources :genres, only: [:index, :show] do
     resources :tags
   end

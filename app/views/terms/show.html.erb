@@ -9,11 +9,14 @@
 <!-- Termに付いたタグ一覧 -->
 <% @term.tags.each do |tag| %>
   <%= link_to tag.name, genre_tag_path(tag.genre, tag), class:"btn btn-primary border-dark text-white btn-sm" %>
+  <%= link_to "外す", term_tagging_path(@term, tag), method: :delete, data: {confirm: "タグを外してよろしいですか？"} %>
 <% end %>
 <!-- Term名 -->
 <h1><%= @term.name %></h1>
 <!-- Term投稿者 -->
-<%= link_to @term.user.name, user_path(@term.user_id) %>
+<% if @term.user.present? %>
+  <p>作成者:<%= link_to @term.user.name, user_path(@term.user_id) %></p>
+<% end %>
 <!-- キープ -->
 <div id="keep_section">
   <%= render partial: "keeps/keep", locals: { term: @term } %>

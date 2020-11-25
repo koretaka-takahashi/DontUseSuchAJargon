@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_many :terms # dependent: :destroy は無くていい
+  has_many :terms, dependent: :nullify
   has_many :descriptions # これもdependent: :destroy は無くていい
   has_many :tags # これもdependent: :destroy は無くていい
   has_many :comments # これもdependent: :destroy は無くていい

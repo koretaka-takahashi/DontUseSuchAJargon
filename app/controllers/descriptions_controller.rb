@@ -59,9 +59,9 @@ class DescriptionsController < ApplicationController
     params.require(:description).permit(:content, :user_id, :term_id)
   end
 
-  # 投稿者本人かどうか
+  # 投稿者本人もしくは管理者かどうか
   def user_check
-    if @description.user != current_user
+    if @description.user != current_user && current_user.try(:admin?) == false
       flash[:alert] = "権限がありません。"
       redirect_back(fallback_location: root_path)
     end  

@@ -1,7 +1,7 @@
 class TagsController < ApplicationController
 before_action :authenticate_user!, except: [:index, :show] # ログイン済みかどうか。
-before_action :set_tag, only: [:show, :edit, :update]
-before_action :set_genre, only: [:index, :show, :new, :create] # 親ジャンルをセット
+before_action :set_tag, only: [:show, :edit, :update, :destroy]
+before_action :set_genre, only: [:index, :show, :new, :create, :edit, :update, :destroy] # 親ジャンルをセット
 before_action :user_check, only: [:edit, :update, :destroy] # 作成者に編集削除権限
 before_action :admin_check, only: [:edit, :update, :destroy] # 管理者に編集削除権限
 
@@ -36,6 +36,11 @@ before_action :admin_check, only: [:edit, :update, :destroy] # 管理者に編�
     end
   end
 
+  def destroy
+    @tag.destroy
+    redirect_to genre_tags_path(@genre), notice: "タグ「#{@tag.name}」を削除しました。"
+  end
+
   private
 
   def set_tag
@@ -47,12 +52,12 @@ before_action :admin_check, only: [:edit, :update, :destroy] # 管理者に編�
   end
 
   def tag_params
-    params.require(:tag).permit(:name)
+    params.require(:tag).permit(:name, :user_id, :genre_id)
   end
 
-  # 投稿者本人かどうか
+  # 投稿者本人もしくは管理者かどうか
   def user_check
-    if @tag.user != current_user
+    if @tag.user != current_user && current_user.try(:admin?) == false
       flash[:alert] = "権限がありません。"
       redirect_back(fallback_location: root_path)
     end  

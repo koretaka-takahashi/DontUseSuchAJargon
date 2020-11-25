@@ -79,21 +79,24 @@
       </div>
     </header>
 
-    <main>
-      <% if notice %>
-        <p class="notice"><%= notice %></p>
-      <% end %>
-      <% if alert %>
-        <p class="alert"><%= alert %></p>
-      <% end %>
-
-      <div id="showTerm"></div>
-    </main>
-
-
-    <aside>
-    </aside>
-    
-    <%= yield %>
+    <div class="container">
+      <main>
+        <% if notice %>
+          <p class="notice"><%= notice %></p>
+        <% end %>
+        <% if alert %>
+          <p class="alert"><%= alert %></p>
+        <% end %>
+        <%= yield %>
+      </main>
+      <div class="right-section">
+        <aside>
+          assssssssssssside
+        </aside>
+        <footer>
+          foooooooter
+        </footer>
+      <div>
+    </div>
   </body>
 </html>

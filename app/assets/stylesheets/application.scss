@@ -16,13 +16,21 @@
  */
  
  *{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+    box-sizing: border-box; // paddingが要素のサイジングを邪魔するのを予め回避
+    margin: 0; // 自動的に付くmarginを予めリセット
+    padding: 0; // 自動的に付くpaddingを予めリセット
 }
 
-header {
+header,aside {
   background-color: rgb(238, 222, 169);
+}
+
+aside {
+  min-height: 300px;
+}
+
+ul {
+  list-style: none; // ドットを予め決しておく
 }
 
 .modal{
@@ -54,4 +62,5 @@ header {
 .js-modal-close-btn{
   text-align: right;
 }
+
 
