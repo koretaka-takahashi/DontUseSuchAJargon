@@ -1,0 +1,11 @@
+<!-- 解説の詳細ページにレンダーされる<いいね！>部分 -->
+
+<% if current_user.already_liked?(description) %>
+  <%= link_to destroy2_term_description_like_path(term, description), method: :delete, remote: true do %>
+    <i class="fas fa-heart"></i>
+  <% end %>
+<% else %>
+  <%= link_to create2_term_description_like_path(term, description), method: :post, remote: true do %>
+    <i class="far fa-heart"></i>
+  <% end %>
+<% end %>

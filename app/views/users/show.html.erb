@@ -1,9 +1,18 @@
-<p><%= @user.name %></p>
-<p><%= simple_format @user.profile %></p>
-<p>投稿した解説数:<%= @user.descriptions.count %></p>
-
-<!-- 本人もしくは管理者のみ表示 -->
-<% if current_user && @user == current_user || current_user.try(:admin?) %>
-  <p><%= link_to 'プロフィール変更', edit_user_registration_path %></p>
-<% end %>
-
+<!-- プロフィールページ -->
+<div class="contents-wrap">
+  <div class="section-wrap">
+    <h2 class="section-title profile">Profile</h2>
+    <!-- プロフィール変更（本人のみ表示） -->
+    <% if current_user && @user == current_user %>
+      <p class="edit-prifile"><%= link_to 'プロフィール変更', edit_user_registration_path %></p>
+    <% end %>
+  </div>
+  <!-- プロフィール画像 -->
+  <img src="/assets/human-icon-big.jpeg" class="profile-image">
+  <!-- ユーザー名 -->
+  <p class="user-name2"><%= @user.name %></p>
+  <!-- 解説数 -->
+  <p>投稿した解説数:<%= @user.descriptions.count %></p>
+  <!-- プロフィール本文 -->
+  <p><%= simple_format @user.profile %></p>
+</div>

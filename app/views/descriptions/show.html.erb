@@ -1,36 +1,37 @@
 <!-- 解説の詳細ページ -->
 
-<!-- 解説するTerm名 -->
-<h1><%= link_to @term.name, term_path(@term) %></h1>とは
-<p>
-  <!-- 解説の作成時間 -->
-  <%= @description.created_at.strftime("%F %R") %>
-  <!-- 投稿者及び管理者には編集削除ボタン表示 -->
-  <% if @description.user == current_user || current_user.try(:admin?) %>
-    <%= link_to "編集", edit_term_description_path(@term, @description) %>
-    <%= link_to "削除", term_description_path(@term, @description), method: :delete, data: {confirm: "解説を削除してよろしいですか？"} %>
-  <% end %>
-</p>
-<!-- 解説本文 -->
-<p><%= simple_format @description.content %></p>
+<div class="contents-wrap">
+  <!-- 解説するTerm名 -->
+  <h2 class="description-show-title"><%= @term.name %><span class="is">とは</span></h2>
+  <p>
+    <!-- 解説の作成時間 -->
+    <%= @description.created_at.strftime("%F %R") %>
+    <!-- 投稿者及び管理者には編集削除ボタン表示 -->
+    <% if @description.user == current_user || current_user.try(:admin?) %>
+      <%= link_to "編集", edit_term_description_path(@term, @description) %>
+      <%= link_to "削除", term_description_path(@term, @description), method: :delete, data: {confirm: "解説を削除してよろしいですか？"} %>
+    <% end %>
+  </p>
+  <!-- 解説本文 -->
+  <p><%= simple_format @description.content %></p>
 
-<!-- いいね部分 -->
-<div id="like_section">
-  <%= render partial: "likes/like", locals: { term: @term, description: @description } %>
+  <!-- いいね部分 -->
+  <div id="like_section_<%= @description.id %>">
+    <%= render partial: "likes/like", locals: { term: @term, description: @description } %>
+  </div>
+
+  <hr>
+
+  <!-- コメント入力欄 -->
+
+  <%= render partial: 'comments/form', locals: { comment: @comment, description: @description, term: @term } %>
+
+  <!-- FLASH用。必要な時だけnoticeを出す為に空にしてある -->
+  <div id="comment_index_notice"></div>
+  <hr>
+
+  <!-- 解説に付いたコメント一覧（termも渡す必要が出てくるかも） -->
+  <div id="comments_area">
+    <%= render partial: 'comments/index', locals: { comments: @comments, description: @description } %>
+  </div>
 </div>
-
-<hr>
-
-<!-- コメント入力欄 -->
-<p>コメントを書く</p>
-<%= render partial: 'comments/form', locals: { comment: @comment, description: @description, term: @term } %>
-
-<!-- FLASH用。必要な時だけnoticeを出す為に空にしてある -->
-<div id="comment_index_notice"></div>
-<hr>
-
-<!-- 解説に付いたコメント一覧（termも渡す必要が出てくるかも） -->
-<div id="comments_area">
-  <%= render partial: 'comments/index', locals: { comments: @comments, description: @description } %>
-</div>
-

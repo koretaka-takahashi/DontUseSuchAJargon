@@ -1,2 +1,4 @@
-$("#keep_section").html("<%= j render partial: "keeps/keep", locals: { term: @term } %>");
+<%# キープを外す処理 %>
+$("#keep_section_<%= @term.id %>").html("<%= j render partial: "keeps/keep", locals: { term: @term } %>");
 console.log("destroy.jsを通りました");
+<%# idは一覧をeachで回すケースでtermを特定する為付与 %>

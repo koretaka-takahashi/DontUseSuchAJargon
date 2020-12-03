@@ -1,5 +1,9 @@
-<h1>編集</h1>
+<div class="contents-wrap">
 
-<%= render "form" %>
+  
+  <h2 class="tag-edit"><span class="tag-big"><%= "#{@tag.name}" %></span>の編集</h2>
 
-<p><%= link_to "戻る", genre_tag_path(@genre, @tag) %></p>
+  <%= render "form" %>
+
+  <p><%= link_to "戻る", :back %></p>
+</div>

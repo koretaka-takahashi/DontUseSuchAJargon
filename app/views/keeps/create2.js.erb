@@ -1,0 +1,4 @@
+<%# キープする処理%>
+$("#keep_section_<%= @term.id %>").html("<%= j render partial: "keeps/keep2", locals: { term: @term } %>");
+console.log("create2.jsを通りました");
+<%# idは一覧をeachで回すケースでtermを特定する為付与 %>

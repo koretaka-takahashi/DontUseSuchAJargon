@@ -13,7 +13,7 @@
 
         <p>
           <!-- 返信投稿者名 -->
-          <%= comment.user.name %>
+          <%= link_to comment.user.name, user_path(comment.user) %>
           <!-- 返信投稿日時 -->
           <%= comment.created_at.strftime("%F %R") %>
 

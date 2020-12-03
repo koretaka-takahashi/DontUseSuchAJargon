@@ -14,72 +14,98 @@
   </head>
 
   <body>
+    <!-- ヘッダー -->
     <header>
-      <nav>
-        <h1><%= link_to "DON'T USE SUCH A JARGON", root_path %></h1>
-        <% if user_signed_in? %>
-            <strong><%= "ようこそ、#{current_user.name}さん！" %></strong>
-            <%= link_to 'マイページ', user_path(current_user.id) %>
-            <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
-        <% else %>
-            <%= link_to 'ログイン', new_user_session_path %>
-            <%= link_to 'サインアップ', new_user_registration_path %>
-        <% end %>
-      </nav>
-
-      <ul class="search-box">
-        <%= search_form_for @search, url: terms_path do |f| %>
-          <li><%= f.search_field :name_cont ,placeholder: '検索するテキストを入力...' %></li>
-          <li><%= f.submit ("検索") , class: 'search-btn'%></li>
-        <% end %>
-      </ul>
-      <div class="content">
-        <p class="js-modal-open-search"><%= link_to "詳細検索" %></p>
-      </div>
-      <div class="modal js-modal-search">
-        <div class="modal__bg js-modal-close-search"></div>
-        <div class="modal__content">
-          <ul class="search-box">
-            <%= search_form_for @search, url: terms_path do |f| %>
-              <li><%= f.label :name_cont, "名から" %></li>
-              <li><%= f.search_field :name_cont ,placeholder: '検索するテキストを入力...' %></li>
-              <li><%= f.label :descriptions_content_cont, "解説から" %></li>
-              <li><%= f.search_field :descriptions_content_cont ,placeholder: '検索するテキストを入力...' %></li>
-              <li><%= f.label :genre_id, "ジャンル選択" %>
-              <li><%= f.collection_select :genre_id_eq, Genre.all, :id, :name, :include_blank => '指定なし' %>        
-              <li><%= f.submit ("検索") , class: 'search-btn'%></li>
-            <% end %>
-            <div class="js-modal-close-btn">
-              <a class="js-modal-close-search" href="">閉じる</a>
-            </div>
-          </ul>
+      <!-- ヘッダー左側 -->
+      <div class="header-1">
+        <div class="app-logo">
+          <h1 class="app-logo-top"><%= link_to "DON'T USE SUCH A", root_path, class: "app-logo-top" %></h1>
+          <h1 class="app-logo-bottom"><%= link_to "JARGON", root_path, class: "app-logo-bottom" %></h1>
         </div>
+        <% if user_signed_in? %>
+          <p class="welcome"><%= "ようこそ、#{current_user.name}さん！" %></p>
+        <% else %>  
+          <p class="welcome"><%= "ようこそ、ゲストさん！" %></p>
+        <% end %>
       </div>
 
-      <!-- Button trigger modal -->
-      <% if user_signed_in? %>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#termModal">
-          Term登録
-        </button>
-      <% end %>
-
-      <!-- Modal -->
-      <div class="modal fade" id="termModal" tabindex="-1" role="dialog" aria-labelledby="termModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="termModalLabel">Term登録</h5>
-              <button type="button" class="close"  id="" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+      <!-- ヘッダー中央-->
+      <div class="header-2">
+        <%# <p class="search">Term検索</p> %>
+        <ul class="search-box">
+          <%= search_form_for @search, url: terms_path do |f| %>
+            <div class="search-wrap">
+              <li><%= f.search_field :name_cont, placeholder: 'Term名で検索...', class: 'search-field' %></li>
+              <li><%= f.submit ("検索") , class: 'search-btn'%></li>
             </div>
-            <%= render "terms/new" %>
+          <% end %>
+        </ul>
+        <div class="content">
+          <p class="js-modal-open-search search-in-detail"><%= link_to "詳細検索" %></p>
+        </div>
+        <div class="modal js-modal-search">
+          <div class="modal__bg js-modal-close-search"></div>
+            <div class="modal__content">
+              <ul class="search-box">
+                <%= search_form_for @search, url: terms_path do |f| %>
+                  <li><%= f.label :name_cont, "Term名から検索", class: "search-label" %></li>
+                  <li><%= f.search_field :name_cont ,placeholder: 'テキストを入力...' %></li>
+                  <li><%= f.label :descriptions_content_cont, "解説から検索", class: "search-label" %></li>
+                  <li><%= f.search_field :descriptions_content_cont ,placeholder: 'テキストを入力...' %></li>
+                  <li><%= f.label :genre_id, "ジャンル選択", class: "search-label" %>
+                  <li class="search-label-genre"><%= f.collection_select :genre_id_eq, Genre.all, :id, :name, :include_blank => '指定なし' %>        
+                  <li><%= f.submit ("検索") , class: 'search-btn'%></li>
+                <% end %>
+                <div class="js-modal-close-btn">
+                  <a class="js-modal-close-search" href="">閉じる</a>
+                </div>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
+
+      <!-- ヘッダー右側 -->
+      <div class="header-3">
+        <!-- Button trigger modal -->
+        <% if user_signed_in? %>
+          <button type="button" class="btn btn-sm btn-default term-submit" data-toggle="modal" data-target="#termModal">
+            Term登録
+          </button>
+        <% end %>
+        <!-- Modal -->
+        <div class="modal fade" id="termModal" tabindex="-1" role="dialog" aria-labelledby="termModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="termModalLabel">Term登録</h5>
+                <button type="button" class="close btn-sm"  id="" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <%= render "terms/new" %>
+            </div>
+          </div>
+        </div>
+        <nav class="header-swap">
+          <% if user_signed_in? %>
+              <%= link_to 'マイページ', user_path(current_user.id), class: "mypage-or-login" %>
+              <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
+          <% else %>
+              <%= link_to 'ログイン', new_user_session_path, class: "mypage-or-login" %>
+              <%= link_to 'サインアップ', new_user_registration_path %>
+          <% end %>
+        </nav>
+      </div>
     </header>
 
-    <div class="container">
+
+
+
+
+    
+    <!-- メイン -->
+    <div class="wrap1">
       <main>
         <% if notice %>
           <p class="notice"><%= notice %></p>
@@ -89,14 +115,46 @@
         <% end %>
         <%= yield %>
       </main>
-      <div class="right-section">
-        <aside>
-          assssssssssssside
+
+
+
+
+
+      <!-- サイドバー -->
+      <div class="wrap2">
+        <aside class="aside">
+          <!-- いいね一覧 -->
+          <h3 class="like-list">いいね！した解説</h3>
+          <% current_user.likes.each do |like| %>
+          <div class="liked-description">
+            <span><%= "#{like.description.created_at.strftime('%Y/%m/%d')} #{like.description.user.name}さん" %></span><br>
+            <span><%= "about #{like.description.term.name}" %></span><br>
+            <span><%= like.description.content.truncate(20) %></span><br>
+          </div>
+          <% end %>
+          <p class="see-all"><%= link_to "…全て見る", likes_user_path(current_user) %></p>
+          <!-- キープ一覧 -->
+          <h3 class="keep-list">キープしたTerm</h3>
+          <% current_user.keeps.each do |keep| %>
+            <p class="keeped-term"><%= keep.term.name %></p>
+          <% end %>
+          <p class="see-all"><%= link_to "…全て見る", keeps_user_path(current_user) %></p>
         </aside>
-        <footer>
-          foooooooter
-        </footer>
-      <div>
+        <!-- サイドフッター -->
+        <footer class="footer">©️DON'T USE SUCH A JARGON</footer>
+      </div>
+
+
+
+      <!-- スマホ表示時サイドバー -->
+      <div class="wrap3">
+        <aside class="aside2">
+          <p class="aside2-like"><%= link_to "❤︎いいね！した解説", likes_user_path(current_user) %></p>
+          <p class="aside2-keep"><%= link_to "★キープしたTerm", keeps_user_path(current_user) %></p>
+        </aside>
+        <!-- スマホ表示時フッター -->
+        <footer class="footer2">©️DON'T USE SUCH A JARGON</footer>
+      </div>
     </div>
   </body>
 </html>

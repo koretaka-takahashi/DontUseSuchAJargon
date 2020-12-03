@@ -6,8 +6,9 @@
   <div id="create_error_area"></div>
   
   <ul class="form comment_form">
+    <p class="leave-comment">コメントを書く</p>
     <div class="comment_content">
-      <li><%= f.text_area :content %></li>
+      <li><%= f.text_area :content, size: "25x4" %></li>
     </div>     
     <div class="submit comment_submit">      
       <li><%= f.submit "登録", id: "comment_submit" %></li>

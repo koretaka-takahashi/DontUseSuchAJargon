@@ -11,7 +11,7 @@
 
     <p>
       <!-- コメント投稿者 -->
-      <%= comment.user.name %>
+      <%= link_to comment.user.name, user_path(comment.user) %>
       <!-- コメント投稿時間 -->
       <%= comment.created_at.strftime("%F %R") %>
 
@@ -36,7 +36,7 @@
 
     <!-- コメントへの返信フォームを表示する為のボタン（未ログイン時は非表示） -->
     <% if user_signed_in? %>
-      <%= link_to "返信する", new_term_description_comment_path(@term, @description, comment: comment, id: comment.id), remote: true %>
+      <p class="reply"><%= link_to "返信する", new_term_description_comment_path(@term, @description, comment: comment, id: comment.id), remote: true %></p>
     <% end %>
 
     <!-- ここに返信フォームがレンダーされる -->

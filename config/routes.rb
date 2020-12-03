@@ -13,10 +13,20 @@ Rails.application.routes.draw do
   resources :terms, except: [:new] do
     resources :descriptions, except: [:index] do
       resources :comments
-      resource :like, only: [:create, :destroy]
+      resource :like, only: [:create, :destroy] do
+        collection do
+          post :create2
+          delete :destroy2
+        end
+      end
     end
     resources :taggings, only: [:create, :destroy]
-    resource :keep, only: [:create, :destroy]
+    resource :keep, only: [:create, :destroy] do
+      collection do
+        post :create2
+        delete :destroy2
+      end
+    end
   end
   
   if Rails.env.development?

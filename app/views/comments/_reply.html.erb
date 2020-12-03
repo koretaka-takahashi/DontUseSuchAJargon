@@ -2,7 +2,7 @@
 
 <!-- FLASH用。編集、返信時が優先。 -->
 <% if notice %>
-  <div id="comment_index_notice"><%= notice %></div>
+  <div id="comment_index_notice" class="comment_notice"><%= notice %></div>
 <% end %>
 
 <%= form_with(model: [term, description, reply]) do |f| %>

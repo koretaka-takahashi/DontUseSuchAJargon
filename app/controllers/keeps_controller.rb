@@ -1,15 +1,24 @@
 class KeepsController < ApplicationController
   before_action :authenticate_user! # ログイン済みかどうか。
   before_action :set_term
-  before_action :set_keep, only: [:destroy] 
-  before_action :user_check, only: [:destroy] # キープした本人にのみ削除権限
+  before_action :set_keep, only: [:destroy, :destroy2] 
+  # before_action :user_check # キープした本人にのみ削除権限　いやいやこの機能そもそもおかしいじゃん　キープした本人も何も本人がキープしてるかどうか見る場所なんだから。
 
   def create
     @keep = current_user.keeps.build(term_id: @term.id)
     @keep.save
   end
 
+  def create2
+    @keep = current_user.keeps.build(term_id: @term.id)
+    @keep.save
+  end
+
   def destroy
+    @keep.destroy
+  end
+
+  def destroy2
     @keep.destroy
   end
 
@@ -31,3 +40,4 @@ class KeepsController < ApplicationController
     end  
   end
 end
+# この機能そもそもおかしい　本人がキープしてるかどうか本人だけが見る場所なんだからキープした本人も何もない。

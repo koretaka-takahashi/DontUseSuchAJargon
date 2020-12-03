@@ -8,7 +8,7 @@ before_action :admin_check, only: [:edit, :update, :destroy] # 管理者に編�
 # タグに関しては運用自体考え中。
 
   def index
-    @tags = Tag.where(genre_id: @genre.id).order(:name)
+    @tags = Tag.where(genre_id: @genre.id).order(:created_at)
   end
 
   def new
@@ -30,7 +30,7 @@ before_action :admin_check, only: [:edit, :update, :destroy] # 管理者に編�
 
   def update
     if @tag.update(tag_params)
-      redirect_to genre_tags_path(@genre), notice: "更新しました。"
+      redirect_to genre_tag_path(@genre, @tag), notice: "更新しました。"
     else
       render :new
     end
