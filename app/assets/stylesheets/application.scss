@@ -194,6 +194,17 @@ a:hover {
 .like-list {
   margin-top: 20px;
 }
+.intro-wrap{
+  // height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.intro {
+  font-size: 16px;
+}
 
 
 /* ヘッダー以外を包む */
@@ -220,18 +231,18 @@ main {
   margin-right: 15px;
   padding: 20px;
   font-size: 0.9em;
-    overflow-wrap: anywhere; /* 親要素に影響与えないように折り返す */
+  overflow-wrap: anywhere; /* 親要素に影響与えないように折り返す */
 
 }
 .genre-card-section {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-around;
 }
 .genre-card {
-  width: 180px;
-  height: 180px;
-  margin: 25px;
+  width: 200px;
+  height: 200px;
+  margin: 20px 15px;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 2px 7px rgb(94, 81, 68);
@@ -262,6 +273,10 @@ aside {
   padding: 10px 50px;
   overflow: scroll;
   font-size: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .liked-description {
   margin: 19px 0;
@@ -284,6 +299,22 @@ aside {
   background-color: #fff;
   border: solid 1px rgb(151, 133, 112)
 }
+.signup-btn {
+  height: 160px;
+  width: 160px;
+  border-color: rgb(156, 143, 130);
+  border-radius: 80px;
+  background-color: rgb(252, 247, 243);
+  color: rgb(94, 81, 68);
+}
+.signup-btn:hover {
+  height: 150px;
+  width: 150px;
+  margin: 5px;
+  border-color: rgb(0, 255, 34);
+  opacity: 0.7;
+}
+
 .list-item {
 
 }
@@ -624,16 +655,21 @@ footer {
 
 
 
+/* ジャンルの横並びが限界になる時 */
+@media screen and (max-width: 1200px) {
+  .genre-card {
+    width: 250px;
+    height: 150px;
+  }
+}
+
+
 
 
 
 
 /* タブレット表示時 */
 @media screen and (max-width: 1064px) {
-  .genre-card {
-    width: 350px;
-    height: 150px;
-  }
   .top-tags {
     height: 90px;
   }
@@ -642,9 +678,16 @@ footer {
 
 
 /* タブレット表示時 */
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1000px) {
   body {
     width: 90vw;
+  }
+}
+
+/* タブレット表示時 */
+@media screen and (max-width: 800px) {
+  .genre-card {
+    margin: 20px 0;
   }
 }
 
@@ -742,6 +785,9 @@ footer {
   .aside2-like,
   .aside2-keep {
     margin: 0;
+  }
+  .genre-card {
+    margin: 20px 30px;
   }
 
 

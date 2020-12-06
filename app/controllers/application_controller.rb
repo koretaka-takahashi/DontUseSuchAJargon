@@ -6,9 +6,11 @@ class ApplicationController < ActionController::Base
     root_path
   end
   protected
+
+  # Deviseのストロングパラメーター
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :profile])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :profile])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :profile, :image])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :profile, :image])
   end
 
   def set_search
@@ -21,7 +23,7 @@ class ApplicationController < ActionController::Base
     @genres = Genre.all
   end
 
-  # ログインユーザーが管理者かどうか
+  # ログインユーザーが管理者かどうかをチェック
   def admin_check
     if current_user.admin == false
       flash[:alert] = "権限がありません。"

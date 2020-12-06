@@ -107,13 +107,15 @@
     <!-- メイン -->
     <div class="wrap1">
       <main>
-        <% if notice %>
-          <p class="notice"><%= notice %></p>
-        <% end %>
-        <% if alert %>
-          <p class="alert"><%= alert %></p>
-        <% end %>
-        <%= yield %>
+        <div class="contents-wrap">
+          <% if notice %>
+            <p class="notice"><%= notice %></p>
+          <% end %>
+          <% if alert %>
+            <p class="alert"><%= alert %></p>
+          <% end %>
+          <%= yield %>
+        </div>
       </main>
 
 
@@ -123,22 +125,33 @@
       <!-- サイドバー -->
       <div class="wrap2">
         <aside class="aside">
-          <!-- いいね一覧 -->
-          <h3 class="like-list">いいね！した解説</h3>
-          <% current_user.likes.each do |like| %>
-          <div class="liked-description">
-            <span><%= "#{like.description.created_at.strftime('%Y/%m/%d')} #{like.description.user.name}さん" %></span><br>
-            <span><%= "about #{like.description.term.name}" %></span><br>
-            <span><%= like.description.content.truncate(20) %></span><br>
-          </div>
+          <% if current_user %>
+            <!-- いいね一覧 -->
+            <h3 class="like-list">いいね！した解説</h3>
+            <% current_user.likes.each do |like| %>
+            <div class="liked-description">
+              <span><%= "#{like.description.created_at.strftime('%Y/%m/%d')} #{like.description.user.name}さん" %></span><br>
+              <span><%= "about #{like.description.term.name}" %></span><br>
+              <span><%= like.description.content.truncate(20) %></span><br>
+            </div>
+            <% end %>
+            <p class="see-all"><%= link_to "…全て見る", likes_user_path(current_user) %></p>
+            <!-- キープ一覧 -->
+            <h3 class="keep-list">キープしたTerm</h3>
+            <% current_user.keeps.each do |keep| %>
+              <p class="keeped-term"><%= keep.term.name %></p>
+            <% end %>
+            <p class="see-all"><%= link_to "…全て見る", keeps_user_path(current_user) %></p>
+          <% else %>
+            <div class="intro-wrap">
+              <h3 class="intro">サインアップして</h3>
+              <h3 class="intro">言葉を共有しましょう</h3>
+            </div>
+            <button class="signup-btn">
+              <%= link_to 'SIGN', new_user_registration_path %><br>
+              <%= link_to 'UP', new_user_registration_path %>
+            </button>
           <% end %>
-          <p class="see-all"><%= link_to "…全て見る", likes_user_path(current_user) %></p>
-          <!-- キープ一覧 -->
-          <h3 class="keep-list">キープしたTerm</h3>
-          <% current_user.keeps.each do |keep| %>
-            <p class="keeped-term"><%= keep.term.name %></p>
-          <% end %>
-          <p class="see-all"><%= link_to "…全て見る", keeps_user_path(current_user) %></p>
         </aside>
         <!-- サイドフッター -->
         <footer class="footer">©️DON'T USE SUCH A JARGON</footer>
@@ -149,8 +162,10 @@
       <!-- スマホ表示時サイドバー -->
       <div class="wrap3">
         <aside class="aside2">
-          <p class="aside2-like"><%= link_to "❤︎いいね！した解説", likes_user_path(current_user) %></p>
-          <p class="aside2-keep"><%= link_to "★キープしたTerm", keeps_user_path(current_user) %></p>
+          <% if current_user %>
+            <p class="aside2-like"><%= link_to "❤︎いいね！した解説", likes_user_path(current_user) %></p>
+            <p class="aside2-keep"><%= link_to "★キープしたTerm", keeps_user_path(current_user) %></p>
+          <% end %>
         </aside>
         <!-- スマホ表示時フッター -->
         <footer class="footer2">©️DON'T USE SUCH A JARGON</footer>

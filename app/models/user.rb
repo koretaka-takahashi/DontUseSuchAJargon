@@ -14,6 +14,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  mount_uploader :image, ImageUploader
+  
   # いいね！しているか否か
   def already_liked?(description)
     self.likes.exists?(description_id: description.id)

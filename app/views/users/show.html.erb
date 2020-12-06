@@ -8,7 +8,11 @@
     <% end %>
   </div>
   <!-- プロフィール画像 -->
-  <img src="/assets/human-icon-big.jpeg" class="profile-image">
+  <% if current_user.image.present? %>
+    <img src="<%= @user.image %>" class="profile-image">
+  <% else %>
+    <img src="/assets/human-icon-big.jpeg" class="profile-image">
+  <% end %>
   <!-- ユーザー名 -->
   <p class="user-name2"><%= @user.name %></p>
   <!-- 解説数 -->
