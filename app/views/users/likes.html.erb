@@ -1,8 +1,20 @@
-<h1>いいね！一覧</h1>
+<h2 class="section-title user-like-title">いいね！一覧</h2>
 
 <% @likes.each do |like| %>
-  <p>
-    <%= "<#{like.description.term.name}>に関する解説" %>
-    <%= link_to like.description.content.truncate(100), term_description_path(like.description.term, like.description ) %>
-  </p>
+   <div class="user-like-list">
+    <p>
+      <%= link_to "<#{like.description.term.name}>に関する解説", term_description_path(like.description.term, like.description) %>
+    </p>
+    <p class="mid-font">
+      <!-- 投稿者名 -->
+      投稿者:<%= link_to like.description.user.name, user_path(like.description.user) %>
+      <!-- 解説の作成時間 -->
+      <%= like.description.created_at.strftime("%F %R") %>
+    </p>
+    <p class="mid-font">
+      <%= link_to "#{like.description.content.truncate(100)}…", term_description_path(like.description.term, like.description ) %>
+    </p>
+  </div>
+  <hr>
 <% end %>
+

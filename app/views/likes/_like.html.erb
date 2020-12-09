@@ -1,11 +1,13 @@
 <!-- 解説の詳細ページにレンダーされる<いいね！>部分 -->
 
-<% if current_user.already_liked?(description) %>
-  <%= link_to term_description_like_path(term, description), method: :delete, remote: true do %>
-    <%= "いいね！" %><i class="fas fa-heart"></i>
+<div class="like-wrap">
+  <% if current_user && current_user.already_liked?(description) %>
+    <%= link_to term_description_like_path(term, description), method: :delete, remote: true do %>
+      <%= "いいね！" %><i class="fas fa-heart"></i>
+    <% end %>
+  <% else %>
+    <%= link_to term_description_like_path(term, description), method: :post, remote: true do %>
+      <%= "いいね！" %><i class="far fa-heart"></i>
+    <% end %>
   <% end %>
-<% else %>
-  <%= link_to term_description_like_path(term, description), method: :post, remote: true do %>
-    <%= "いいね！" %><i class="far fa-heart"></i>
-  <% end %>
-<% end %>
+</div>

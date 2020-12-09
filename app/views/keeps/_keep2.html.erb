@@ -1,11 +1,12 @@
 <!-- ジャンルの詳細ページのTerm一覧で特定されたTermにレンダーされる -->
-
-<% if current_user && current_user.already_keeped?(term) %>
-  <%= link_to destroy2_term_keep_path(term), method: :delete, remote: true do %>
-    <i class="fas fa-star"></i>
+<div class="keep-wrap">
+  <% if current_user && current_user.already_keeped?(term) %>
+    <%= link_to destroy2_term_keep_path(term), method: :delete, remote: true do %>
+      <i class="fas fa-star"></i>
+    <% end %>
+  <% else %>
+    <%= link_to create2_term_keep_path(term), method: :post, remote: true do %>
+      <i class="far fa-star"></i>
+    <% end %>
   <% end %>
-<% else %>
-  <%= link_to create2_term_keep_path(term), method: :post, remote: true do %>
-    <i class="far fa-star"></i>
-  <% end %>
-<% end %>
+</div>

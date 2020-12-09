@@ -8,13 +8,11 @@ class User < ApplicationRecord
   validates :name, presence: true, length: { maximum: 50 }
   validates :email, presence: true, length: { maximum: 100 }
   validates :profile, length: { maximum: 1500 }
-
+  mount_uploader :image, ImageUploader
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-
-  mount_uploader :image, ImageUploader
   
   # いいね！しているか否か
   def already_liked?(description)

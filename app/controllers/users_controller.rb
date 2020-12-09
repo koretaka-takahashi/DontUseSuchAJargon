@@ -18,12 +18,12 @@ class UsersController < ApplicationController
 
   # いいね！一覧
   def likes
-    @likes = @user.likes.all
+    @likes = @user.likes.all.includes(description: :user)
   end
 
   # キープ一覧
   def keeps
-    @keeps = @user.keeps.all
+    @keeps = @user.keeps.all.includes(term: :genre)
   end
 
   private

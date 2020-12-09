@@ -1,37 +1,42 @@
 <!-- 解説の詳細ページ -->
 
-<div class="contents-wrap">
-  <!-- 解説するTerm名 -->
-  <h2 class="description-show-title"><%= @term.name %><span class="is">とは</span></h2>
-  <p>
-    <!-- 解説の作成時間 -->
-    <%= @description.created_at.strftime("%F %R") %>
-    <!-- 投稿者及び管理者には編集削除ボタン表示 -->
-    <% if @description.user == current_user || current_user.try(:admin?) %>
-      <%= link_to "編集", edit_term_description_path(@term, @description) %>
-      <%= link_to "削除", term_description_path(@term, @description), method: :delete, data: {confirm: "解説を削除してよろしいですか？"} %>
-    <% end %>
-  </p>
-  <!-- 解説本文 -->
-  <p><%= simple_format @description.content %></p>
+<!-- 解説するTerm名 -->
+<h2 class="description-show-title">
+  <%= link_to @term.name, term_path(@term) %>
+  <span class="is">とは</span>
+</h2>
+<!-- 投稿者名 -->
+<p>投稿者:<%= link_to @description.user.name, user_path(@description.user) %></p>
+<p>
+  <!-- 解説の作成時間 -->
+  <%= @description.created_at.strftime("%F %R") %>
+  <!-- 投稿者及び管理者には編集削除ボタン表示 -->
+  <% if @description.user == current_user || current_user.try(:admin?) %>
+    <%= link_to "編集", edit_term_description_path(@term, @description) %>
+    <%= link_to "削除", term_description_path(@term, @description), method: :delete, data: {confirm: "解説を削除してよろしいですか？"} %>
+  <% end %>
+</p>
+<!-- 解説本文 -->
+<p><%= simple_format @description.content %></p>
 
-  <!-- いいね部分 -->
+<!-- いいね部分 -->
+<% if user_signed_in? %>
   <div id="like_section_<%= @description.id %>">
     <%= render partial: "likes/like", locals: { term: @term, description: @description } %>
   </div>
+<% end %>
 
-  <hr>
+<hr>
 
-  <!-- コメント入力欄 -->
+<!-- コメント入力欄 -->
 
-  <%= render partial: 'comments/form', locals: { comment: @comment, description: @description, term: @term } %>
+<%= render partial: 'comments/form', locals: { comment: @comment, description: @description, term: @term } %>
 
-  <!-- FLASH用。必要な時だけnoticeを出す為に空にしてある -->
-  <div id="comment_index_notice"></div>
-  <hr>
+<!-- FLASH用。必要な時だけnoticeを出す為に空にしてある -->
+<div id="comment_index_notice"></div>
+<hr>
 
-  <!-- 解説に付いたコメント一覧（termも渡す必要が出てくるかも） -->
-  <div id="comments_area">
-    <%= render partial: 'comments/index', locals: { comments: @comments, description: @description } %>
-  </div>
+<!-- 解説に付いたコメント一覧（termも渡す必要が出てくるかも） -->
+<div id="comments_area">
+  <%= render partial: 'comments/index', locals: { comments: @comments, description: @description } %>
 </div>

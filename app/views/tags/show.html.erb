@@ -1,60 +1,56 @@
 <!-- タグ詳細ページ -->
 
-<div class="contents-wrap">
+<!-- タグ名 -->
+<span class="tag-big"><%= "#{@tag.name}" %></span>
+<span>
+  <!-- 編集ボタンは投稿者のみへ表示 -->
+  <% if current_user == @tag.user %>
+    <%= link_to "編集", edit_genre_tag_path(@genre, @tag) %>
+  <% end %>
+  <!-- 削除ボタンは管理者へのみ表示 -->
+  <% if current_user.try(:admin?) %>
+    <%= link_to "削除", genre_tag_path(@genre, @tag), method: :delete, data: {confirm: "タグを削除してよろしいですか？"} %>
+  <% end %>
+</span>
+<span class="tag-big-genre"><%= link_to "(#{@genre.name})", genre_path(@genre) %></span>
+<h2 class="tag-big-title">のタグを付けられた用語一覧</h2>
 
+<p class="tag-big-title">
+  
+</p>
 
-  <!-- タグ名 -->
-  <span class="tag-big"><%= "#{@tag.name}" %></span>
-  <span>
-    <!-- 編集ボタンは投稿者のみへ表示 -->
-    <% if current_user == @tag.user %>
-      <%= link_to "編集", edit_genre_tag_path(@genre, @tag) %>
-    <% end %>
-    <!-- 削除ボタンは管理者へのみ表示 -->
-    <% if current_user.try(:admin?) %>
-      <%= link_to "削除", genre_tag_path(@genre, @tag), method: :delete, data: {confirm: "タグを削除してよろしいですか？"} %>
-    <% end %>
-  </span>
-  <span class="tag-big-genre"><%= link_to "(#{@genre.name})", genre_path(@genre) %></span>
-  <h2 class="tag-big-title">のタグを付けられた用語一覧</h2>
-
-  <p class="tag-big-title">
-    
-  </p>
-
-  <ul class="tag-term-list">
-    <!-- タグに紐づいたTermの一覧 -->
-    <% @tag.terms.each do |term| %>
-      <li class="term-name">
-        <!-- Term名 -->
-        <%= link_to "#{term.name}", term_path(term) %>
-        <!-- ジャンル名 -->
-        <% if term.genre.present? %>
-          <%= "(#{term.genre.name})" %>
+<ul class="tag-term-list">
+  <!-- タグに紐づいたTermの一覧 -->
+  <% @tag.terms.each do |term| %>
+    <li class="term-name">
+      <!-- Term名 -->
+      <%= link_to "#{term.name}", term_path(term) %>
+      <!-- ジャンル名 -->
+      <% if term.genre.present? %>
+        <%= "(#{term.genre.name})" %>
+      <% else %>
+        <%= "(未指定)" %>
+      <% end %>
+    </li>
+    <li class="tag-list">
+      <!-- Termに紐づいたタグ一覧 -->
+      <% term.tags.each do |tag| %>
+        <% if tag == @tag && user_signed_in? %>
+          <span class="tag"><%= tag.name %></span>
+          <span class="remove-tagging"><%= link_to "外す", term_tagging_path(term, term.taggings.find_by(tag_id: @tag.id)), method: :delete, data: {confirm: "タグを外してよろしいですか？"} %></span>
         <% else %>
-          <%= "(未指定)" %>
+          <span class="tag"><%= link_to tag.name, genre_tag_path(tag.genre, tag) %></span>
         <% end %>
-      </li>
-      <li class="tag-list">
-        <!-- Termに紐づいたタグ一覧 -->
-        <% term.tags.each do |tag| %>
-          <% if tag == @tag %>
-            <span class="tag"><%= tag.name %></span>
-            <span class="remove-tagging"><%= link_to "外す", term_tagging_path(term, term.taggings.find_by(tag_id: @tag.id)), method: :delete, data: {confirm: "タグを外してよろしいですか？"} %></span>
-          <% else %>
-            <span class="tag"><%= link_to tag.name, genre_tag_path(tag.genre, tag) %></span>
-          <% end %>
-        <% end %>
-      </li>
-      <!-- Termに付いた解説数 -->
-      <li class="description-numbers">
-        <%= link_to "解説(#{term.descriptions.count})", term_path(term, anchor: "descriptions-list") %>
-      </li>
-      <hr>
-    <% end %>
+      <% end %>
+    </li>
+    <!-- Termに付いた解説数 -->
+    <li class="description-numbers">
+      <%= link_to "解説(#{term.descriptions.count})", term_path(term, anchor: "descriptions-list") %>
+    </li>
+    <hr>
+  <% end %>
 
-    <% if @tag.terms.count == 0 %>
-      <%= "タグ付けされたTermはありません。" %>
-    <% end %>
-  </ul>
-</div>
+  <% if @tag.terms.count == 0 %>
+    <%= "タグ付けされたTermはありません。" %>
+  <% end %>
+</ul>

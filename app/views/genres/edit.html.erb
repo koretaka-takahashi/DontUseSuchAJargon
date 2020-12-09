@@ -1,0 +1,23 @@
+<h1>編集</h1> <!-- ジャンルは変更できなくて良い考え -->
+
+<%= form_with(model: @genre, local: true) do |f| %>
+  <% if @genre.errors.any? %>
+    <div id="error_explanation">
+      <p><%= "#{@genre.errors.count}件のエラーがあります。" %></p>
+      <ol>
+        <% @genre.errors.full_messages.each do |m| %>
+          <li><%= m %></li>
+        <% end %>
+      </ol>  
+    </div>
+  <% end %>
+  <ul class="form genre_form">
+    <div class="field">
+      <%= f.label :image %><br/>
+      <%= f.file_field :image %>
+    </div>  
+    <div class="submit genre_submit">      
+      <li><%= f.submit "登録" %></li>
+    </div>  
+  </ul>
+<% end %>

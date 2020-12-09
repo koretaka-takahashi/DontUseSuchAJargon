@@ -1,7 +1,5 @@
-<div class="contents-wrap">
-  <h2 class="section-title"><%= @genre.name %>内のタグ追加</h2>
+<h2 class="section-title"><%= @genre.name %>内のタグ追加</h2>
 
-  <%= render "form" %>
+<%= render "form" %>
 
-  <p><%= link_to "戻る", genre_tags_path(@genre) %></p>
-</div>
+<p><%= link_to "戻る", genre_tags_path(@genre) %></p>

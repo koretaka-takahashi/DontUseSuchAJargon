@@ -1,11 +1,12 @@
 <!-- Termの詳細ページにレンダーされるキープ部分 -->
-
-<% if current_user && current_user.already_keeped?(term) %>
-  <%= link_to term_keep_path(term), method: :delete, remote: true do %>
-    <i class="fas fa-star"></i><%= "キープ済み" %>
+<div class="keep-wrap">
+  <% if current_user && current_user.already_keeped?(term) %>
+    <%= link_to term_keep_path(term), method: :delete, remote: true do %>
+      <i class="fas fa-star"></i><%= "キープ済み" %>
+    <% end %>
+  <% else %>
+    <%= link_to term_keep_path(term), method: :post, remote: true do %>
+      <i class="far fa-star"></i><%= "キープする" %>
+    <% end %>
   <% end %>
-<% else %>
-  <%= link_to term_keep_path(term), method: :post, remote: true do %>
-    <i class="far fa-star"></i><%= "キープする" %>
-  <% end %>
-<% end %>
+</div>

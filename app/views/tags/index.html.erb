@@ -1,13 +1,14 @@
 <!-- ジャンル内タグ一覧ページ -->
-<div class="contents-wrap">
-  <!-- ジャンル名 -->
-  <h2 class="genre-tag-index"><%= "ジャンル＜ #{@genre.name} ＞内のタグ一覧" %></h2>
-  <!-- タグ追加リンク（未ログイン時はログイン画面へ） -->
+
+<!-- ジャンル名 -->
+<h2 class="genre-tag-index"><%= "ジャンル＜ #{@genre.name} ＞内のタグ一覧" %></h2>
+<!-- タグ追加リンク（未ログイン時はログイン画面へ） -->
+<% if user_signed_in? %>
   <button class="btn btn-sm"><%= link_to "タグ追加", new_genre_tag_path(@genre) %></button>
-  <!-- ジャンル内タグ一覧 -->
-  <p class="genre-tag-list">
-    <% @tags.each do |tag| %>
-      <span class="tag"><%= link_to tag.name, genre_tag_path(@genre, tag) %></span>
-    <% end %>
-  </p>
-</div>
+<% end %>
+<!-- ジャンル内タグ一覧 -->
+<p class="genre-tag-list">
+  <% @tags.each do |tag| %>
+    <span class="tag"><%= link_to tag.name, genre_tag_path(@genre, tag) %></span>
+  <% end %>
+</p>

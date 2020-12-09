@@ -1,22 +1,21 @@
 <!-- プロフィールページ -->
-<div class="contents-wrap">
-  <div class="section-wrap">
-    <h2 class="section-title profile">Profile</h2>
-    <!-- プロフィール変更（本人のみ表示） -->
-    <% if current_user && @user == current_user %>
-      <p class="edit-prifile"><%= link_to 'プロフィール変更', edit_user_registration_path %></p>
-    <% end %>
-  </div>
-  <!-- プロフィール画像 -->
-  <% if current_user.image.present? %>
-    <img src="<%= @user.image %>" class="profile-image">
-  <% else %>
-    <img src="/assets/human-icon-big.jpeg" class="profile-image">
+
+<div class="section-wrap">
+  <h2 class="section-title profile">Profile</h2>
+  <!-- プロフィール変更（本人のみ表示） -->
+  <% if current_user && @user == current_user %>
+    <p class="edit-prifile"><%= link_to 'プロフィール変更', edit_user_registration_path %></p>
   <% end %>
-  <!-- ユーザー名 -->
-  <p class="user-name2"><%= @user.name %></p>
-  <!-- 解説数 -->
-  <p>投稿した解説数:<%= @user.descriptions.count %></p>
-  <!-- プロフィール本文 -->
-  <p><%= simple_format @user.profile %></p>
 </div>
+<!-- プロフィール画像 -->
+<% if @user.image.present? %>
+  <img src="<%= @user.image %>" class="profile-image">
+<% else %>
+  <img src="/assets/human-icon-big.jpeg" class="profile-image">
+<% end %>
+<!-- ユーザー名 -->
+<p class="user-name2"><%= @user.name %></p>
+<!-- 解説数 -->
+<p>投稿した解説数:<%= @user.descriptions.count %></p>
+<!-- プロフィール本文 -->
+<p><%= simple_format @user.profile %></p>

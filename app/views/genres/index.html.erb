@@ -5,7 +5,12 @@
   <% @genres.each do |genre| %>
     <div class="genre-card">
       <!-- ジャンル名 -->
-      <h2 class="top-genre"><%= link_to genre.name, genre_path(genre.id) %></h2>
+      <%= link_to genre_path(genre.id) do %>
+      <div class="top-genre-wrap">
+        <img src="<%= genre.image %>" class="genre-icon">
+        <h2 class="top-genre"><%= genre.name %></h2>
+      </div>
+      <% end %>
       <div class="top-tags">
         <!-- ジャンル内タグ一覧 -->
         <% genre.tags.order(:created_at).each do |tag| %>
@@ -17,3 +22,4 @@
     </div>
   <% end %>
 </section>
+<div>

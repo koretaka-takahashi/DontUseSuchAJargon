@@ -1,19 +1,17 @@
 <!-- ユーザーの一覧ページ（管理者用） -->
-<div class="contents-wrap">
 
-  <h1 class="section-title">ユーザー管理画面</h1>
-  <ul  class="user-index">
-    <% @users.each do |user| %>
-      <!-- ユーザー名 -->
-      <li class="user-name">
-        <% if user.admin == false %> 
-          <span class="user-name-index"><%= link_to "#{user.name}", user_path(user) %></span>
-        <% else %>
-          <span><%= link_to "#{user.name}", user_path(user), class:"user-name-index2" %></span>
-        <% end %>
-        <span><%= link_to "削除", user_path(user), method: :delete, data: {confirm: "ユーザー<#{user.name}>さんを削除してよろしいですか？"} %></span>
-      </li>
-      <hr class="hr3">
-    <% end %>
-  </ul>
-</div>
+<h1 class="section-title">ユーザー管理画面</h1>
+<ul  class="user-index">
+  <% @users.each do |user| %>
+    <!-- ユーザー名 -->
+    <li class="user-name">
+      <% if user.admin == false %> 
+        <span class="user-name-index"><%= link_to "#{user.name}", user_path(user) %></span>
+      <% else %>
+        <span><%= link_to "#{user.name}", user_path(user), class:"user-name-index2" %></span>
+      <% end %>
+      <span><%= link_to "削除", user_path(user), method: :delete, data: {confirm: "ユーザー<#{user.name}>さんを削除してよろしいですか？"} %></span>
+    </li>
+    <hr class="hr3">
+  <% end %>
+</ul>

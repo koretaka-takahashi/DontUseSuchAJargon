@@ -1,53 +1,55 @@
 <!-- Termの詳細ページ -->
 
-<div class="contents-wrap">
-  <!-- Term情報全体を包む -->
-  <div class="term-show-wrap">
-    <!-- Term情報最初の１行 -->
-    <div class="term-show-title-wrap">
-      <!-- Term名 -->
-      <h2 class="term-show-title"><%= @term.name %></h2>
-      <!-- Termに紐づけられたジャンル名 -->
-      <div class="genre-name-show">
-        <% if @term.genre.present? %>
-          <p><%= "(#{@term.genre.name})" %></p>
-        <% else %>
-          <%= "(ジャンル未指定)" %>
-        <% end %>
-      </div>
-      <!-- キープアイコン -->
+<!-- Term情報全体を包む -->
+<div class="term-show-wrap">
+  <!-- Term情報最初の１行 -->
+  <div class="term-show-title-wrap">
+    <!-- Term名 -->
+    <h2 class="term-show-title"><%= @term.name %></h2>
+    <!-- Termに紐づけられたジャンル名 -->
+    <div class="genre-name-show">
+      <% if @term.genre.present? %>
+        <p class="genre-term-title">(<%= link_to @term.genre.name, genre_path(@term.genre) %>)</p>
+      <% else %>
+        <%= "(ジャンル未指定)" %>
+      <% end %>
+    </div>
+    <!-- キープアイコン -->
+    <% if user_signed_in? %>
       <div id="keep_section_<%= @term.id %>" class="keep-icon">
         <%= render partial: "keeps/keep", locals: { term: @term } %>
       </div>
-    </div>
-
-    <!-- Term投稿者 -->
-    <div class="contributor-wrap">
-      <p class="contributor">
-        <% if @term.user == nil %>
-          <%= "登録者:退会済みユーザー" %>
-        <% else %>
-          <%= link_to "登録者:#{@term.user.name}", user_path(@term.user) %>
-        <% end %>
-      </p>
-      <p>
-        <!-- 編集ボタンは投稿者及び管理者へ表示 -->
-        <% if current_user == @term.user || current_user.try(:admin?) %>
-          <%= link_to "編集", edit_term_path(@term) %>
-        <% end %>
-        <!-- 削除ボタンは管理者へのみ表示 -->
-        <% if current_user.try(:admin?) %>
-          <%= link_to "削除", term_path(@term), method: :delete, data: {confirm: "Termを削除してよろしいですか？"} %>
-        <% end %>
-      </p>
-    </div>
-
-    <% @term.tags.each do |tag| %>
-      <span class="tag">
-        <%= link_to tag.name, genre_tag_path(tag.genre, tag) %>
-      </span>
     <% end %>
-    <!-- タグ付け用タグリスト（未ログイン時はログイン画面へ） -->
+  </div>
+
+  <!-- Term投稿者 -->
+  <div class="contributor-wrap">
+    <p class="contributor">
+      <% if @term.user == nil %>
+        <%= "登録者:退会済みユーザー" %>
+      <% else %>
+        登録者:<%= link_to @term.user.name, user_path(@term.user) %>
+      <% end %>
+    </p>
+    <p>
+      <!-- 編集ボタンは投稿者及び管理者へ表示 -->
+      <% if current_user == @term.user || current_user.try(:admin?) %>
+        <%= link_to "編集", edit_term_path(@term) %>
+      <% end %>
+      <!-- 削除ボタンは管理者へのみ表示 -->
+      <% if current_user.try(:admin?) %>
+        <%= link_to "削除", term_path(@term), method: :delete, data: {confirm: "Termを削除してよろしいですか？"} %>
+      <% end %>
+    </p>
+  </div>
+
+  <% @term.tags.each do |tag| %>
+    <span class="tag">
+      <%= link_to tag.name, genre_tag_path(tag.genre, tag) %>
+    </span>
+  <% end %>
+  <!-- タグ付け用タグリスト（未ログイン時はログイン画面へ） -->
+  <% if user_signed_in? %>
     <div class="tagging-list">
       <% if Tag.where(genre_id: @term.genre_id).where.not(id: @term.tags.ids).count != 0 %>
         <%= render "taggings/form" %>
@@ -55,41 +57,46 @@
         <%= "（タグ付けできるタグはこれ以上ありません。）" %>
       <% end %>
     </div>
-  </div>
+  <% end %>
+</div>
 
-  <!-- 解説作成へのリンク（未ログイン時はログイン画面へ） -->
+<!-- 解説作成へのリンク（未ログイン時はログイン画面へ） -->
+<% if user_signed_in? %>
   <p><%= link_to "解説する", new_term_description_path(@term) %></p>
+<% end %>
 
-  <!-- Termに付いた解説リスト -->
-  <div id="descriptions-list" class="description-section">
-    <% @descriptions.each do |description| %>
-      <hr class="hr">
-      <h2 class="term_title_description">
-        <%= link_to term_description_path(@term, description) do %>
-          <%= @term.name %><span class="is">とは</span>
-        <% end %>
-      </h2>
-      <p>
-        <!-- いいねアイコン -->
+<!-- Termに付いた解説リスト -->
+<div id="descriptions-list" class="description-section">
+  <% @descriptions.each do |description| %>
+    <hr class="hr">
+    <h2 class="term_title_description">
+      <%= link_to term_description_path(@term, description) do %>
+        <%= @term.name %><span class="is">とは</span>
+      <% end %>
+    </h2>
+    <p>
+      <!-- いいねアイコン -->
+      <% if user_signed_in? %>
         <div id="like_section_<%= description.id %>">
           <%= render partial: "likes/like2", locals: { term: @term, description: description } %>
         </div>
-        <!-- 解説作成日時 -->
-        <%= description.created_at.strftime("%F %R") %>
-        <!-- 投稿者名 -->
-        <%= link_to description.user.name, user_path(description.user) %>
-        <!-- 投稿者には編集削除権限 -->
-        <% if description.user == current_user %>
-          <%= link_to "編集", edit_term_description_path(@term, description) %>
-          <%= link_to "削除", term_description_path(@term, description), method: :delete, data: {confirm: "解説を削除してよろしいですか？"} %>
-        <% end %>
-      </p> 
-      <p class="description-content">
-        <!-- 解説本文を一定文字数表示 -->
-        <%= simple_format description.content.truncate(100) %>
-        <!-- 解説本文を全表示へのリンク -->
-        <%= link_to "全て見る", term_description_path(@term, description) %>
-      </p>
-    <% end %>
-  </div>
+      <% end %>
+      <!-- 解説作成日時 -->
+      <%= description.created_at.strftime("%F %R") %>
+      <!-- 投稿者名 -->
+      <%= link_to description.user.name, user_path(description.user) %>
+      <!-- 投稿者には編集削除権限 -->
+      <% if description.user == current_user %>
+        <%= link_to "編集", edit_term_description_path(@term, description) %>
+        <%= link_to "削除", term_description_path(@term, description), method: :delete, data: {confirm: "解説を削除してよろしいですか？"} %>
+      <% end %>
+    </p> 
+    <p>コメント<%= link_to "(#{description.comments.count})", term_description_path(@term, description) %></p>
+    <p class="description-content">
+      <!-- 解説本文を一定文字数表示 -->
+      <%= simple_format description.content.truncate(100) %>
+      <!-- 解説本文を全表示へのリンク -->
+      <%= link_to "全て見る", term_description_path(@term, description) %>
+    </p>
+  <% end %>
 

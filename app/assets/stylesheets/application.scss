@@ -63,6 +63,22 @@ ul {
 
 
 
+.pagination {
+  margin: 35px 0;
+}
+.pagination>li>a {          
+  border: none;     /*枠線をなくす*/
+  color: #696969;   /*文字の色を変える*/
+}
+.pagination>li>a:hover {          
+  background-color: #fff;
+  color: #696969;   /*文字の色を変える*/
+}
+.pagination>.active>.page-link {
+  z-index: 2;
+  background-color: rgb(145, 131, 118);
+  // border-color: #007bff;
+}
 
 
 
@@ -92,8 +108,18 @@ a {
 a:hover {
   color: rgb(94, 81, 68);
   text-decoration: none;
+  opacity: 0.7;
+}
+input:focus {
+  outline: none;
+} 
+.mid-font {
+  font-size: 14px;
 }
 .section-wrap {
+  display: flex;
+}
+.for-flex {
   display: flex;
 }
 .header-1 {
@@ -115,6 +141,7 @@ a:hover {
 .app-logo-top:hover,
 .app-logo-bottom:hover {
   color: rgb(0, 255, 34);
+  opacity: 1;
 }
 .app-logo-top {
   margin-top: 12px;
@@ -231,8 +258,8 @@ main {
   margin-right: 15px;
   padding: 20px;
   font-size: 0.9em;
-  overflow-wrap: anywhere; /* 親要素に影響与えないように折り返す */
-
+  // overflow-wrap: anywhere; /* 親要素に影響与えないように折り返す */
+  overflow-y: scroll; /* 親要素に影響与えないようにはみ出た分はスクロールに */
 }
 .genre-card-section {
   display: flex;
@@ -244,8 +271,9 @@ main {
   height: 200px;
   margin: 20px 15px;
   background-color: #fff;
+  // border: groove 1px rgb(151, 133, 112);
   border-radius: 10px;
-  box-shadow: 0 2px 7px rgb(94, 81, 68);
+  box-shadow: 0 1px 20px rgb(43, 36, 30);
 }
 .top-genre {
   font-size: 20px;
@@ -253,9 +281,22 @@ main {
   text-align: center;
   margin: 5px;
 }
+.genre-icon {
+  height: 22px;
+  width: 22px;
+  margin-top: 2px;
+}
+.top-genre-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+  margin-bottom: 4px;
+  // margin-left: 20px;
+}
 .top-tags {
   padding-top: 2px;
-  height: 110px;
+  height: 130px;
   overflow: scroll;
   margin: 0 20px;
 }
@@ -273,6 +314,9 @@ aside {
   padding: 10px 50px;
   overflow: scroll;
   font-size: 0.8rem;
+}
+.wrap-if-not-loged-in {
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -308,11 +352,18 @@ aside {
   color: rgb(94, 81, 68);
 }
 .signup-btn:hover {
+  height: 160px;
+  width: 160px;
+  border-color: rgb(0, 255, 34);
+  opacity: 0.7;
+}
+.signup-btn:active {
   height: 150px;
   width: 150px;
   margin: 5px;
   border-color: rgb(0, 255, 34);
   opacity: 0.7;
+  outline: none;
 }
 
 .list-item {
@@ -526,6 +577,9 @@ footer {
   font-size: 25px;
   font-weight: bold;
 }
+.mb30 {
+  margin-bottom: 30px;
+}
 
 
 
@@ -630,6 +684,15 @@ footer {
 .profile {
   margin-bottom: 15px;
 }
+.user-keep-list,
+.user-like-list {
+  margin: 40px 0;
+  font-size: 16px;
+}
+.user-keep-title,
+.user-like-title {
+  margin-bottom: 50px;
+}
 
 
 
@@ -653,6 +716,12 @@ footer {
   margin-left: 15px;
 }
 
+/* like */
+.like-wrap > a,
+.keep-wrap > a {
+  opacity: 1;
+}
+
 
 
 /* ジャンルの横並びが限界になる時 */
@@ -660,6 +729,9 @@ footer {
   .genre-card {
     width: 250px;
     height: 150px;
+  }
+  .top-tags {
+    height: 90px;
   }
 }
 

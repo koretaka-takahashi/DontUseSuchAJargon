@@ -1,29 +1,31 @@
 <!-- ジャンルの詳細ページ -->
-<div class="contents-wrap">
 
-  <!-- ジャンル内のTerm一覧 -->
-  <div class="term-index-wrap">
-    <h2 class="term-index"><%= "#{@genre.name} 関連のTerm一覧" %></h2>
-    <p class="to-tags-index"><%= link_to ">>タグ一覧へ", genre_tags_path(@genre) %></p>
-  </div>
-  <% @terms.each do |term| %>
-    <div class="term-title-wrap">
-      <!-- キープアイコン -->
+<!-- ジャンル内のTerm一覧 -->
+<div class="term-index-wrap">
+  <h2 class="section-title"><%= "#{@genre.name} 関連のTerm一覧" %></h2>
+  <p class="to-tags-index"><%= link_to "»タグ一覧へ", genre_tags_path(@genre) %></p>
+</div>
+<%= paginate @terms %>
+<% @terms.each do |term| %>
+  <div class="term-title-wrap">
+    <!-- ログイン時はキープアイコン -->
+    <% if user_signed_in? %>
       <div id="keep_section_<%= term.id %>">
         <%= render partial: "keeps/keep2", locals: { term: term } %>
       </div>
-      <!-- Term名 -->
-      <p class="genre-term-title"><%= link_to term.name, term_path(term) %></p>
-    </div>
-    <!-- Termのタグ一覧 -->
-    <% term.tags.each do |tag| %>
-      <span class="tag">
-        <%= link_to tag.name, genre_tag_path(@genre, tag) %>
-      </span>
     <% end %>
-    <!-- 付いた解説数 -->
-    <p class="numbers-of-description2"><%= link_to "解説(#{term.descriptions.count})", term_path(term, anchor: "descriptions-list") %></p>
-    <hr class="hr2">
+    <!-- Term名 -->
+    <p class="genre-term-title"><%= link_to term.name, term_path(term) %></p>
+  </div>
+  <!-- Termのタグ一覧 -->
+  <% term.tags.each do |tag| %>
+    <span class="tag">
+      <%= link_to tag.name, genre_tag_path(@genre, tag) %>
+    </span>
   <% end %>
-</div>
+  <!-- 付いた解説数 -->
+  <p class="numbers-of-description2"><%= link_to "解説(#{term.descriptions.count})", term_path(term, anchor: "descriptions-list") %></p>
+  <hr class="hr2">
+<% end %>
+<%= paginate @terms %>
 

@@ -1,8 +1,11 @@
-<h1>キープ一覧</h1>
+<h2 class="section-title user-keep-title">キープ一覧</h2>
 
 <% @keeps.each do |keep| %>
-  <p>
+  <p class="user-keep-list">
     <%= link_to keep.term.name, term_path(keep.term) %>
-    <%= "(#{keep.term.genre.name})" %>
+    <% if keep.term.genre %>
+      (<%= link_to keep.term.genre.name, genre_path(keep.term.genre) %>)
+    <% end %>
   </p>
+  <hr>
 <% end %>

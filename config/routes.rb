@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       get :keeps
     end
   end
-  resources :genres, only: [:index, :show] do
+  resources :genres, only: [:index, :show, :edit, :update] do
     resources :tags
   end
   resources :terms, except: [:new] do
