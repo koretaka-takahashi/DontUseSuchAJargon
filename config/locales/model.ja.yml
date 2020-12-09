@@ -1,0 +1,30 @@
+ja:
+  activerecord:
+    models:
+      genre: ジャンル
+      term: Term
+      description: 解説
+      comment: コメント
+      user: ユーザー
+      tag: タグ
+      like: いいね！
+      keep: キープ
+    attributes:
+      genre:
+        name: ジャンル名
+        image: ジャンル画像
+      term:
+        name: Term名
+      description:
+        content: 本文
+      comment:
+        content: コメント本文
+      user:
+        name: 名前
+        email: メールアドレス
+        current_password: 現在のパスワード
+        password: パスワード
+        password_confirmation: 確認用パスワード
+        remember_me: ログインを記憶
+        profile: プロフィール
+        image: プロフィール画像
