@@ -23,7 +23,7 @@ class DescriptionsController < ApplicationController
     @description = current_user.descriptions.build(description_params)
     @description.term_id = @term.id
     if @description.save
-      redirect_to term_description_path(@description.term, @description), notice: "解説を投稿しました"
+      redirect_to term_description_path(@description.term, @description), notice: "解説を投稿しました。"
     else
       render :new
     end
@@ -34,7 +34,7 @@ class DescriptionsController < ApplicationController
 
   def update
     if @description.update(description_params)
-      redirect_to term_path(@description.term), notice: "更新しました"
+      redirect_to term_path(@description.term), notice: "更新しました。"
     else
       render :edit
     end
@@ -42,7 +42,7 @@ class DescriptionsController < ApplicationController
 
   def destroy
     @description.destroy
-    redirect_to term_path(@description.term), notice: "解説を削除しました"
+    redirect_to term_path(@description.term), notice: "解説を削除しました。"
   end
 
   private

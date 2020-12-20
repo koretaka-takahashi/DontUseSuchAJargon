@@ -1,4 +1,4 @@
-<p>こんにちは、 <%= @email %>さん</p>
+<p class="section-title">こんにちは、 <%= @email %>さん</p>
 
 <% if @resource.try(:unconfirmed_email?) %>
   <p><%= t('devise.unknown.email.We_are_contacting_you_to_notify_you_that_your_email_is_being_changed_to') %> <%= @resource.unconfirmed_email %>.</p>

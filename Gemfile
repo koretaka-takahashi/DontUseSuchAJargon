@@ -54,6 +54,12 @@ group :development, :test do
   gem 'pry-rails'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'rspec-rails'
+  gem 'spring-commands-rspec'
+  gem 'factory_bot_rails'
+  gem 'faker'
+  gem 'launchy'
+  gem 'database_cleaner'
 end
 
 group :development do
@@ -71,7 +77,7 @@ group :test do
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
-  gem 'chromedriver-helper'
+  # gem 'chromedriver-helper'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -80,3 +86,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
 gem 'devise-i18n'
 gem 'devise-i18n-views'
+
