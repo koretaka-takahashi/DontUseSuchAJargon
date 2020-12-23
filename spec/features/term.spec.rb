@@ -64,16 +64,29 @@ RSpec.feature Term, type: :feature do
       expect(page).to have_content '新しくTermを登録しました。'
       expect(current_path).to eq term_path(term)
     end
-    scenario 'Termが編集できる' do
+    scenario '作成者本人はTermが編集できる' do
       term1 = FactoryBot.create(:term1, user_id: @user.id)
       visit term_path(term1)
       click_on '編集'
       fill_in 'edit-term-for-capybara', with: 'term2'
-      click_on '登録'
+      click_on 'edit-term-btn-for-capybara'
       expect(page).to have_content 'Termを更新しました。'
       expect(page).to have_content 'term2'
       expect(page).not_to have_content 'term1'
     end
-    scenario 'Termが削除できる'
+  end
+
+  describe '管理者権限' do
+    scenario '管理者はTermが削除できる' do
+      @user = FactoryBot.create(:user2, admin: true) # 管理者ユーザー
+      visit new_user_session_path
+      fill_in 'メールアドレス', with: @user.email
+      fill_in 'パスワード', with: @user.password
+      click_on 'login-for-capybara'
+      term1 = FactoryBot.create(:term1, user_id: @user.id)
+      visit term_path(term1)
+      click_on '削除'
+      expect(page).to have_content 'を削除しました。'
+    end
   end
 end

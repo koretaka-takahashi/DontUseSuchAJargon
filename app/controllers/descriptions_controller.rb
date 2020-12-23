@@ -3,7 +3,7 @@ class DescriptionsController < ApplicationController
   before_action :set_description, only: [:show, :edit, :update, :destroy]
   before_action :set_term, only: [:show, :new, :create] # 親になるTermを設定
   before_action :user_check, only: [:edit, :update, :destroy] # 投稿者に編集削除権限
-  before_action :admin_check, only: [:edit, :update, :destroy] # 管理者に編集削除権限
+  # before_action :admin_check, only: [:edit, :update, :destroy] # 管理者に編集削除権限 (要らないかも、調整中)
 
 
   def show
@@ -34,7 +34,7 @@ class DescriptionsController < ApplicationController
 
   def update
     if @description.update(description_params)
-      redirect_to term_path(@description.term), notice: "更新しました。"
+      redirect_to term_path(@description.term), notice: "解説を更新しました。"
     else
       render :edit
     end

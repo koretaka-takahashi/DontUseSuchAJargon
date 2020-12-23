@@ -4,7 +4,7 @@
 <h2 class="genre-tag-index"><%= "ジャンル＜ #{@genre.name} ＞内のタグ一覧" %></h2>
 <!-- タグ追加リンク（未ログイン時はログイン画面へ） -->
 <% if user_signed_in? %>
-  <button class="btn btn-sm"><%= link_to "タグ追加", new_genre_tag_path(@genre) %></button>
+  <button class="btn btn-sm"><%= link_to "タグ追加", new_genre_tag_path(@genre), id: "add-tag-for-capybara" %></button>
 <% end %>
 <!-- ジャンル内タグ一覧 -->
 <p class="genre-tag-list">

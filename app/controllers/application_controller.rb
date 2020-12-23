@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
 
   # ログインユーザーが管理者かどうかをチェック
   def admin_check
-    if current_user.admin == false
+    if current_user.try(:admin?) == false
       flash[:alert] = "権限がありません。"
       redirect_back(fallback_location: root_path)
     end  

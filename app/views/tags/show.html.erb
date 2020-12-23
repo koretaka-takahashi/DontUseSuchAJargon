@@ -37,7 +37,9 @@
       <% term.tags.each do |tag| %>
         <% if tag == @tag && user_signed_in? %>
           <span class="tag"><%= tag.name %></span>
-          <span class="remove-tagging"><%= link_to "外す", term_tagging_path(term, term.taggings.find_by(tag_id: @tag.id)), method: :delete, data: {confirm: "タグを外してよろしいですか？"} %></span>
+          <span class="remove-tagging">
+            <%= link_to "外す", term_tagging_path(term, term.taggings.find_by(tag_id: @tag.id)), method: :delete, data: {confirm: "タグを外してよろしいですか？"} %>
+          </span>
         <% else %>
           <span class="tag"><%= link_to tag.name, genre_tag_path(tag.genre, tag) %></span>
         <% end %>

@@ -96,7 +96,7 @@
       <!-- 解説本文を一定文字数表示 -->
       <%= simple_format description.content.truncate(100) %>
       <!-- 解説本文を全表示へのリンク -->
-      <%= link_to "全て見る", term_description_path(@term, description) %>
+      <%= link_to "全て見る", term_description_path(@term, description), id: "description-#{description.id}-for-capybara" %>
     </p>
   <% end %>
 

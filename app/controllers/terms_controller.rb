@@ -4,8 +4,8 @@ class TermsController < ApplicationController
   before_action :set_genres, only: [:new, :edit] # 選択ボックスの為ジャンルを全てセット。
   # before_action :set_tags, only: [:show] # タグ付け時に選ぶリスト用に取得しておく（いらない？）
   before_action :set_tagging, only: [:show]
-  before_action :user_check, only: [:edit, :update] # 投稿者に編集権限
-  before_action :admin_check, only: [:edit, :update, :destroy] # 管理者に編集削除権限
+  before_action :user_check, only: [:edit, :update] # 編集は投稿者もしくは管理者
+  before_action :admin_check, only: [:destroy] # 削除は管理者のみ
 
 
 
@@ -68,7 +68,7 @@ class TermsController < ApplicationController
     params.require(:term).permit(:name, :user_id, :genre_id, tag_ids: [])
   end
 
-  # 投稿者本人もしくは管理者かどうか
+  # 投稿者、管理者でなければ権限なし
   def user_check
     if @term.user != current_user && current_user.try(:admin?) == false
       flash[:alert] = "権限がありません。"
