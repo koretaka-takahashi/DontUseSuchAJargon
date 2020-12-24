@@ -44,6 +44,9 @@ gem 'mini_magick'
 gem 'kaminari'
 gem 'counter_culture'
 
+gem 'faker'
+
+
 
 
 group :development, :test do
@@ -57,7 +60,6 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'spring-commands-rspec'
   gem 'factory_bot_rails'
-  gem 'faker'
   gem 'launchy'
   gem 'database_cleaner'
 end
