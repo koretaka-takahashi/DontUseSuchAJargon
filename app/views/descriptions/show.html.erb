@@ -26,17 +26,18 @@
   </div>
 <% end %>
 
-<hr>
-
 <!-- コメント入力欄 -->
-
-<%= render partial: 'comments/form', locals: { comment: @comment, description: @description, term: @term } %>
+<% if user_signed_in? %>
+  <hr>
+  <%= render partial: 'comments/form', locals: { comment: @comment, description: @description, term: @term } %>
+<% end %>
 
 <!-- FLASH用。必要な時だけnoticeを出す為に空にしてある -->
 <div id="comment_index_notice"></div>
 <hr>
 
 <!-- 解説に付いたコメント一覧（termも渡す必要が出てくるかも） -->
+<h3 class="sub-title">コメント一覧</h3>
 <div id="comments_area">
   <%= render partial: 'comments/index', locals: { comments: @comments, description: @description } %>
 </div>
