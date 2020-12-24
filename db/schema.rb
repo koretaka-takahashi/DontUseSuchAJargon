@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_06_042145) do
+ActiveRecord::Schema.define(version: 2020_12_24_073238) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "comments", force: :cascade do |t|
     t.text "content", null: false
-    t.bigint "user_id", null: false
+    t.bigint "user_id"
     t.bigint "description_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 2020_12_06_042145) do
 
   create_table "descriptions", force: :cascade do |t|
     t.text "content", null: false
-    t.bigint "user_id", null: false
+    t.bigint "user_id"
     t.bigint "term_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -77,7 +77,7 @@ ActiveRecord::Schema.define(version: 2020_12_06_042145) do
     t.bigint "genre_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false
+    t.bigint "user_id"
     t.index ["genre_id"], name: "index_tags_on_genre_id"
     t.index ["user_id"], name: "index_tags_on_user_id"
   end

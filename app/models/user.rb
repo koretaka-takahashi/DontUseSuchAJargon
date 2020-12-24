@@ -1,8 +1,8 @@
 class User < ApplicationRecord
   has_many :terms, dependent: :nullify
-  has_many :descriptions # これもdependent: :destroy は無くていい
-  has_many :tags # これもdependent: :destroy は無くていい
-  has_many :comments # これもdependent: :destroy は無くていい
+  has_many :descriptions, dependent: :nullify
+  has_many :tags, dependent: :nullify
+  has_many :comments, dependent: :nullify
   has_many :likes, dependent: :destroy
   has_many :keeps, dependent: :destroy
   validates :name, presence: true, length: { maximum: 50 }

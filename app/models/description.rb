@@ -1,5 +1,5 @@
 class Description < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, optional: true
   belongs_to :term
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
