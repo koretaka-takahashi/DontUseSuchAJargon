@@ -1,12 +1,94 @@
-# Genre.create!(name: "IT")
-# Genre.create!(name: "音楽")
-# Genre.create!(name: "スポーツ")
-# Genre.create!(name: "教育")
+149.times do |n|
+  name = Faker::Name.name
+  email = Faker::Internet.email
+  password = "password"
+  User.create!(name: name,
+               email: email,
+               password: password,
+               password_confirmation: password,
+               )
+end
+
+User.create!(name: "管理者A", email: "AAAAA@AAAAA.com",password: "aaaaaaaa", password_confirmation: "aaaaaaaa", admin: true )
+
+
+Genre.create!(name: "IT")
+Genre.create!(name: "音楽")
+Genre.create!(name: "スポーツ")
+Genre.create!(name: "教育")
 
 # Term.create!(name: "シンコペーション", user_id: 1, genre_id: 2)
 # Term.create!(name: "デッド", user_id: 2, genre_id: 2)
 # Term.create!(name: "プリプロ", user_id: 3, genre_id: 2)
 # Term.create!(name: "マスタリング", user_id: 1, genre_id: 2)
+
+
+200.times do |i|
+  name = Faker::Food.dish
+  user_id = User.find(rand(149)+1).id
+  genre_id = Genre.find(rand(3)+1).id
+  Term.create!(name: name,
+               user_id: user_id,
+               genre_id: genre_id,
+               )
+end
+
+500.times do |i|
+  content = Faker::Food.description
+  user_id = User.find(rand(149)+1).id
+  term_id = Term.find(rand(199)+1).id
+  Description.create!(content: content,
+               user_id: user_id,
+               term_id: term_id,
+               )
+end
+
+500.times do |i|
+  content = Faker::Food.description
+  user_id = User.find(rand(149)+1).id
+  description_id = Description.find(i+1).id
+  Comment.create!(content: content,
+               user_id: user_id,
+               description_id: description_id,
+               )
+end
+
+80.times do |i|
+  name = Faker::Food.fruits
+  user_id = User.find(rand(149)+1).id
+  genre_id = Genre.find(rand(3)+1).id
+  Tag.create!(name: name,
+               user_id: user_id,
+               genre_id: genre_id,
+               )
+end
+
+100.times do |i|
+  term_id = Term.find(rand(199)+1).id
+  tag_id = Tag.find(rand(79)+1).id
+  Tagging.create!(term_id: term_id,
+               tag_id: tag_id,
+               )
+end
+
+150.times do |i|
+  user_id = User.find(rand(149)+1).id
+  description_id = Description.find(i+1).id
+  Like.create!(user_id: user_id,
+               description_id: description_id,
+               )
+end
+
+150.times do |i|
+  user_id = User.find(rand(149)+1).id
+  term_id = Term.find(rand(199)+1).id
+  Keep.create!(user_id: user_id,
+               term_id: term_id,
+               )
+end
+
+
+
 
 # Tag.create!(name: "ITタグ1", user_id: 1, genre_id: 1)
 # Tag.create!(name: "ITタグ2", user_id: 2, genre_id: 1)
