@@ -84,7 +84,11 @@
       <!-- 解説作成日時 -->
       <%= description.created_at.strftime("%F %R") %>
       <!-- 投稿者名 -->
-      <%= link_to description.user.name, user_path(description.user) %>
+      <% if description.user == nil %>
+        <%= "登録者:退会済みユーザー" %>
+      <% else %>
+        <%= link_to description.user.name, user_path(description.user) %>
+      <% end %>
       <!-- 投稿者には編集削除権限 -->
       <% if description.user == current_user %>
         <%= link_to "編集", edit_term_description_path(@term, description) %>
