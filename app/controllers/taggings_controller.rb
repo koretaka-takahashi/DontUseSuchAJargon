@@ -15,7 +15,7 @@ class TaggingsController < ApplicationController
   def destroy
     tagging = @term.taggings.find(params[:id])
     tagging.destroy
-    redirect_to genre_tag_path(@term.genre, tagging.tag_id), notice: "タグ #{tagging.tag.name}を外しました。"
+    redirect_to term_path(@term), notice: "タグ #{tagging.tag.name}を外しました。"
   end
 
   private
