@@ -1,7 +1,7 @@
 class TaggingsController < ApplicationController
   before_action :authenticate_user! # ログイン済みかどうか。
   before_action :set_term, only: [:create, :destroy]
-  before_action :admin_check, only: [:create, :destroy] # 管理者に削除権限
+  # before_action :admin_check, only: [:create, :destroy] # 管理者に削除権限
 
   def create
     @tagging = @term.taggings.build(tagging_params)

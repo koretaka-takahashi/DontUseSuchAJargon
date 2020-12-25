@@ -3,7 +3,7 @@ before_action :authenticate_user!, except: [:index, :show] # ログイン済み�
 before_action :set_tag, only: [:show, :edit, :update, :destroy]
 before_action :set_genre, only: [:index, :show, :new, :create, :edit, :update, :destroy] # 親ジャンルをセット
 before_action :user_check, only: [:edit, :update, :destroy] # 作成者に編集削除権限
-before_action :admin_check, only: [:edit, :update, :destroy] # 管理者に編集削除権限
+before_action :admin_check, only: [:destroy] # 管理者に編集削除権限
 
 # タグに関しては運用自体考え中。
 
